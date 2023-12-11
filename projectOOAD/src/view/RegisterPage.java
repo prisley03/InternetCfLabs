@@ -32,6 +32,12 @@ public class RegisterPage {
 		Spinner<Integer> ageSpinner = new Spinner<>(0, 120, 20);
 		
 		Button registButton = new Button("Register");
+		
+		public RegistComp(){
+			registButton.setOnMouseClicked(e->{
+				switchLoginScene();
+			});
+		}
 	}
 	
 	public Scene Initialization(RegistComp comp){
@@ -44,11 +50,16 @@ public class RegisterPage {
 	}
 
 	public RegisterPage(Stage stage) {
+		
 		RegistComp obj = new RegistComp();
 		Initialization(obj);
 		stage.setScene(obj.registerScene);
 		stage.setTitle("Register Page");
 		stage.setResizable(false);
 		stage.show();
+	}
+	
+	public void switchLoginScene(){
+		LoginPage loginPage = new LoginPage();
 	}
 }

@@ -21,10 +21,7 @@ public class LoginPage {
 	Button loginBtn = new Button("Login");
 	
 	
-	public Scene Initialization(){
-		
-		return LoginScene;
-	}
+	
 }
 
 	

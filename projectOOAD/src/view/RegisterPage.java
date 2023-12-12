@@ -1,5 +1,6 @@
 package view;
 
+import controller.UserController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,12 +27,12 @@ public class RegisterPage {
 		Label cfPasswordLabel = new Label("Confirm Password");
 		Label ageLabel = new Label("Age");
 		
-		TextField usernameField = new TextField();
-		PasswordField passwordField = new PasswordField();
-		PasswordField cfPasswordField = new PasswordField();
-		Spinner<Integer> ageSpinner = new Spinner<>(0, 120, 20);
+		public TextField usernameField = new TextField();
+		public PasswordField passwordField = new PasswordField();
+		public PasswordField cfPasswordField = new PasswordField();
+		public Spinner<Integer> ageSpinner = new Spinner<>(0, 65, 13);
 		
-		Button registButton = new Button("Register");
+		public Button registButton = new Button("Register");
 		
 		public RegistComp(){
 			registButton.setOnMouseClicked(e->{
@@ -50,9 +51,11 @@ public class RegisterPage {
 	}
 
 	public RegisterPage(Stage stage) {
-		
+		UserController userController = UserController.getInstance();
 		RegistComp obj = new RegistComp();
 		Initialization(obj);
+		userController.handleUserRegistration(obj, stage);
+		
 		stage.setScene(obj.registerScene);
 		stage.setTitle("Register Page");
 		stage.setResizable(false);

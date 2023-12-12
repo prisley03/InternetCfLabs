@@ -4,15 +4,13 @@ public class User {
 	private int userId;
 	private String username;
 	private String password;
-	private String cfPassword;
 	private int userAge;
 	private String userRole;
-	public User(int userId, String username, String password, String cfPassword, int userAge, String userRole) {
+	public User(int userId, String username, String password, int userAge, String userRole) {
 		super();
 		this.userId = userId;
 		this.username = username;
 		this.password = password;
-		this.cfPassword = cfPassword;
 		this.userAge = userAge;
 		this.userRole = userRole;
 	}
@@ -33,12 +31,6 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public String getCfPassword() {
-		return cfPassword;
-	}
-	public void setCfPassword(String cfPassword) {
-		this.cfPassword = cfPassword;
 	}
 	public int getUserAge() {
 		return userAge;

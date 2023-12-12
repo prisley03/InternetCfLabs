@@ -1,5 +1,6 @@
 package main;
 
+import connection.ConnectDB;
 import controller.UserController;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -7,14 +8,17 @@ import javafx.stage.Stage;
 public class Main extends Application{
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-		// TODO Auto-generated method stub
+		
+		ConnectDB.getInstance().initializeConnection();
 		UserController.getInstance().navigate(arg0);
+
+		//String query = String.format("INSERT INTO msuser(UserName, UserPassword, UserRole, UserAge) VALUES('%s', '%s', '%s', %d)", "Name", "Password", "Role", 20);
+		//ConnectDB.getInstance().executeUpdateQuery(query);		
 	}
 
 }

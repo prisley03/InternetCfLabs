@@ -1,19 +1,19 @@
 package view;
 
 import controller.UserController;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.object.User;
-import view.RegisterPage.RegistComp;
 
 public class LoginPage {
 	
@@ -43,13 +43,17 @@ public class LoginPage {
 		
 		comp.sceneBox.getChildren().addAll(comp.loginContainer);
 		comp.mainPane.setCenter(comp.sceneBox);
-		comp.LoginScene = new Scene(comp.mainPane, 800, 600);
+		comp.LoginScene = new Scene(comp.mainPane, 800, 500);
 		
 		return comp.LoginScene;
 	}
 	
 	public void setStyle(LoginComp comp) {
 		comp.errorMessage.setStyle("-fx-text-fill: RED;");
+		comp.loginPageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+		comp.loginContainer.setMaxWidth(500);
+		comp.loginContainer.setAlignment(Pos.CENTER);
+		comp.mainPane.setCenter(comp.loginContainer);
 	}
 	
 	public void setActions(LoginComp obj, Stage stage) {
@@ -59,7 +63,7 @@ public class LoginPage {
 			if(userController.validateLogin(obj)) {
 				User activeUser = userController.getUserData(obj.usernameField.getText(), obj.passwordField.getText());			
 				User.setActiveUser(activeUser);
-				//userController.navigateToLogin(stage);				
+				userController.navigateToMainPage(stage);			
 			}			
 		});
 		

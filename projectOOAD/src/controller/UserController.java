@@ -8,6 +8,7 @@ import model.object.User;
 import utility.StringUtility;
 import view.LoginPage;
 import view.LoginPage.LoginComp;
+import view.MainPage;
 import view.RegisterPage;
 import view.RegisterPage.RegistComp;
 
@@ -28,6 +29,10 @@ public class UserController {
 	
 	public void navigateToLogin(Stage stage) {
 		new LoginPage(stage);
+	}
+	
+	public void navigateToMainPage(Stage stage) {
+		new MainPage(stage);
 	}
 	
 	public boolean validateRegister(RegistComp obj) {

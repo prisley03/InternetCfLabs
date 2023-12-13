@@ -1,6 +1,7 @@
 package view;
 
 import controller.UserController;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -9,8 +10,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class RegisterPage {
@@ -20,7 +22,6 @@ public class RegisterPage {
 		BorderPane mainPane = new BorderPane();
 		VBox sceneBox = new VBox();
 		VBox registerContainer = new VBox(10);
-		HBox genderContainer = new HBox(10);
 		
 		Label registPageTitle = new Label("Welcome to Internet CFLabs");
 		Label usernameLabel = new Label("Username");
@@ -45,12 +46,16 @@ public class RegisterPage {
 		comp.sceneBox.getChildren().addAll(comp.registerContainer);
 
 		comp.mainPane.setCenter(comp.sceneBox);
-		comp.registerScene = new Scene(comp.mainPane, 800, 600);
+		comp.registerScene = new Scene(comp.mainPane, 800, 500);
 		return comp.registerScene;
 	}
 	
 	public void setStyle(RegistComp comp) {
 		comp.errorMessage.setStyle("-fx-text-fill: RED;");
+		comp.registPageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+		comp.registerContainer.setMaxWidth(500);
+		comp.registerContainer.setAlignment(Pos.CENTER);
+		comp.mainPane.setCenter(comp.registerContainer);
 	}
 	
 	public void setActions(RegistComp obj, Stage stage) {

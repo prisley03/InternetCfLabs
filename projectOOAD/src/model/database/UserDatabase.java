@@ -1,6 +1,7 @@
 package model.database;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import connection.ConnectDB;
 import model.object.User;
@@ -17,27 +18,27 @@ public class UserDatabase implements DAO<User> {
 		String query = String.format("SELECT * FROM msuser WHERE UserName = '%s' and UserPassword = '%s'", username, password);
 	
 		ResultSet rs = con.executeSelectQuery(query);
-		User user = null;
-		
-		System.out.println(rs);
 		
 		try {
-			
 			if(rs.next()) {
+				int userID = rs.getInt("UserID");
+				String userName = rs.getString("UserName");
+				String userPassword = rs.getString("UserPassword");
+				String userRole = rs.getString("UserRole");
+				int userAge = rs.getInt("UserAge");
 				
+				return new User(userID, userName, userPassword, userRole, userAge);
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return user;
+		return null;
 	}
 
 	@Override
 	public void insert(User obj) {
 		String query = String.format("INSERT INTO msuser(UserName, UserPassword, UserRole, UserAge) VALUES('%s', '%s', '%s', %d)", obj.getUsername(), obj.getPassword(), obj.getUserRole(), obj.getUserAge());
-		System.out.println(query);
 		con.executeUpdateQuery(query);		
 		return;
 	}
@@ -55,9 +56,33 @@ public class UserDatabase implements DAO<User> {
 	}
 
 	@Override
-	public User select(String id) {
-		// TODO Auto-generated method stub
+	public User selectByName(String username) {
+		String query = String.format("SELECT * FROM msuser WHERE UserName = '%s'", username);
+		
+		ResultSet rs = con.executeSelectQuery(query);
+		
+		try {
+			if(rs.next()) {
+				
+				int userID = rs.getInt("UserID");
+				String userName = rs.getString("UserName");
+				String userPassword = rs.getString("UserPassword");
+				String userRole = rs.getString("UserRole");
+				int userAge = rs.getInt("UserAge");
+				
+				return new User(userID, userName, userPassword, userRole, userAge);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
-
+	
+	@Override
+	public User selectById(int id) {
+		String query = String.format("SELECT * FROM msuser WHERE UserID = '%d'", id);
+		return null;
+	}
 }

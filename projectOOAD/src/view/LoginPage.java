@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.object.User;
 import view.RegisterPage.RegistComp;
 
 public class LoginPage {
@@ -29,20 +30,21 @@ public class LoginPage {
 		public PasswordField passwordField = new PasswordField();
 		public Label errorMessage = new Label();
 
-		public Button loginBtn = new Button("Login");
+		public Button loginButton = new Button("Login");
 		
 	    Hyperlink regisLink = new Hyperlink("Don't have an account yet? Register here");
-
 	}
 	
-	public Scene Initialization(LoginComp comp){
+	public Scene initialize(LoginComp comp){
 		comp.loginContainer.getChildren().addAll(comp.loginPageTitle, 
 				comp.usernameLbl, comp.usernameField,
 				comp.passwordLbl, comp.passwordField,
-				comp.loginBtn, comp.regisLink, comp.errorMessage);
+				comp.loginButton, comp.regisLink, comp.errorMessage);
+		
 		comp.sceneBox.getChildren().addAll(comp.loginContainer);
 		comp.mainPane.setCenter(comp.sceneBox);
 		comp.LoginScene = new Scene(comp.mainPane, 800, 600);
+		
 		return comp.LoginScene;
 	}
 	
@@ -50,26 +52,33 @@ public class LoginPage {
 		comp.errorMessage.setStyle("-fx-text-fill: RED;");
 	}
 	
-	public LoginPage(Stage stage) {
+	public void setActions(LoginComp obj, Stage stage) {
 		UserController userController = UserController.getInstance();
-		LoginComp obj = new LoginComp();
-		Initialization(obj);
-		setStyle(obj);
+
+		obj.loginButton.setOnMouseClicked(e -> {
+			if(userController.validateLogin(obj)) {
+				User activeUser = userController.getUserData(obj.usernameField.getText(), obj.passwordField.getText());			
+				User.setActiveUser(activeUser);
+				//userController.navigateToLogin(stage);				
+			}			
+		});
 		
 		obj.regisLink.setOnAction(e -> {
         	userController.navigateToRegister(stage);
         });
+	}
+	
+	public LoginPage(Stage stage) {
+		LoginComp obj = new LoginComp();
+		initialize(obj);
+		setStyle(obj);
+		setActions(obj, stage);
 			
 		stage.setScene(obj.LoginScene);
 		stage.setTitle("Login Page");
 		stage.setResizable(false);
 		stage.show();
 	}
-
-
-	
-	
-	
 }
 
 	

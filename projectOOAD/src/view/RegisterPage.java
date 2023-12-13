@@ -52,24 +52,28 @@ public class RegisterPage {
 	public void setStyle(RegistComp comp) {
 		comp.errorMessage.setStyle("-fx-text-fill: RED;");
 	}
-
-	public RegisterPage(Stage stage) {
+	
+	public void setActions(RegistComp obj, Stage stage) {
 		UserController userController = UserController.getInstance();
-		RegistComp obj = new RegistComp();
-		Initialization(obj);
-		setStyle(obj);
-		
+
 		obj.registButton.setOnMouseClicked(e -> {
-			if(userController.validateNewUser(obj)) {
-				userController.AddNewUser(obj.usernameField.getText(), obj.passwordField.getText(), obj.ageSpinner.getValue());			
+			if(userController.validateRegister(obj)) {
+				userController.addNewUser(obj.usernameField.getText(), obj.passwordField.getText(), obj.ageSpinner.getValue());			
 				userController.navigateToLogin(stage);				
 			}			
 		});
 		
-        obj.loginLink.setOnAction(e -> {
+		obj.loginLink.setOnAction(e -> {
         	userController.navigateToLogin(stage);
         });
-			
+	}
+
+	public RegisterPage(Stage stage) {
+		RegistComp obj = new RegistComp();
+		Initialization(obj);
+		setStyle(obj);
+		setActions(obj, stage);
+		
 		stage.setScene(obj.registerScene);
 		stage.setTitle("Register Page");
 		stage.setResizable(false);

@@ -1,4 +1,4 @@
-package model;
+package model.object;
 
 public class Job {
 	private int jobId;

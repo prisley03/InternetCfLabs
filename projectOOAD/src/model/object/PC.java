@@ -1,4 +1,4 @@
-package model;
+package model.object;
 
 public class PC {
 	private int pcId;

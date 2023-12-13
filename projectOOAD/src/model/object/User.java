@@ -1,24 +1,16 @@
-package model;
+package model.object;
 
 public class User {
-	private int userId;
 	private String username;
 	private String password;
 	private int userAge;
 	private String userRole;
-	public User(int userId, String username, String password, int userAge, String userRole) {
+	public User(String username, String password, int userAge, String userRole) {
 		super();
-		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.userAge = userAge;
 		this.userRole = userRole;
-	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 	public String getUsername() {
 		return username;

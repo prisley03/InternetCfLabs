@@ -13,12 +13,10 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-		
 		ConnectDB.getInstance().initializeConnection();
-		UserController.getInstance().navigate(arg0);
+		UserController.getInstance().navigateToRegister(arg0);
 
 		//String query = String.format("INSERT INTO msuser(UserName, UserPassword, UserRole, UserAge) VALUES('%s', '%s', '%s', %d)", "Name", "Password", "Role", 20);
 		//ConnectDB.getInstance().executeUpdateQuery(query);		
 	}
-
 }

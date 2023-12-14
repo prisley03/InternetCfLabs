@@ -58,8 +58,9 @@ public class BookPCPage {
 	    		obj.bookingFormLabel, obj.pcBookLabel, 
 	    		obj.pcComboBox, obj.bookingDateLabel, 
 	    		obj.bookingDatePicker, obj.bookButton, obj.errorMessage);
-	   
-	    obj.outerContainer.setTop(new HeaderMenu().getMenuHeader(stage));
+	    
+	   	obj.outerContainer.setTop(new HeaderMenu().getMenuHeader(stage));
+	    obj.splitPane.setDividerPositions(0.18);
 	    obj.splitPane.getItems().addAll(obj.pcTableView, obj.bookPCForm);
 	    obj.outerContainer.setCenter(obj.splitPane);
         

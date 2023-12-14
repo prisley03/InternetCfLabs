@@ -7,6 +7,8 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import model.object.User;
 import view.BookPCPage;
+import view.MakeReportPage;
+import view.TransactionHistoryPage;
 import view.ViewAllPC;
 
 public class HeaderMenu {
@@ -45,7 +47,7 @@ public class HeaderMenu {
 		});
 		
 		obj.viewTransactionHistoryMenuItem.setOnAction(e -> {
-					
+			new TransactionHistoryPage(stage);
 		});
 		
 		obj.bookPCMenuItem.setOnAction(e -> {
@@ -53,7 +55,7 @@ public class HeaderMenu {
 		});
 		
 		obj.makeReportMenuItem.setOnAction(e -> {
-			
+			new MakeReportPage(stage);
 		});
 	}
 	

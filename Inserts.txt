@@ -66,3 +66,6 @@ INSERT INTO mspc(PC_Condition) VALUES
 ("Usable"), ("Maintenance"), ("Broken"), 
 ("Usable"), ("Maintenance"), ("Broken"),
 ("Usable"), ("Maintenance"), ("Broken");
+
+INSERT INTO mspcbook(PC_ID, UserID, BookedDate) 
+VALUES(1, 1, NOW()), (2, 1, NOW()), (3, 1, NOW()), (4, 1, NOW()), (5, 1, NOW());

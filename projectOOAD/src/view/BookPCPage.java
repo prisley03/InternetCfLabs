@@ -2,6 +2,7 @@ package view;
 
 import java.time.LocalDate;
 
+import controller.PCBookController;
 import controller.PCController;
 import header.HeaderMenu;
 import javafx.collections.FXCollections;
@@ -43,6 +44,7 @@ public class BookPCPage {
 		private Label pcBookLabel = new Label("Select PC to Book");
 		private ComboBox<String> pcComboBox = new ComboBox<>();
 		private Button bookButton = new Button("Book Now");
+		public Label errorMessage = new Label();
 
 	}
 	
@@ -55,7 +57,7 @@ public class BookPCPage {
 	    obj.bookPCForm.getChildren().addAll(
 	    		obj.bookingFormLabel, obj.pcBookLabel, 
 	    		obj.pcComboBox, obj.bookingDateLabel, 
-	    		obj.bookingDatePicker, obj.bookButton);
+	    		obj.bookingDatePicker, obj.bookButton, obj.errorMessage);
 	   
 	    obj.outerContainer.setTop(new HeaderMenu().getMenuHeader(stage));
 	    obj.splitPane.getItems().addAll(obj.pcTableView, obj.bookPCForm);
@@ -67,7 +69,7 @@ public class BookPCPage {
 
 	public void bindData(BookPCObj obj) {
         ObservableList<PC> pcList = FXCollections.observableArrayList(
-        		PCController.getInstance().getPCDataByDateAndId(-1, LocalDate.now().toString()));
+        		PCController.getInstance().getPCDetailByDateAndId(-1, LocalDate.now().toString()));
 		obj.pcTableView.setItems(pcList);
 		
 		obj.pcComboBox.getItems().add("Select All");
@@ -84,6 +86,7 @@ public class BookPCPage {
 		obj.bookPCForm.setAlignment(Pos.CENTER);
 		obj.pcComboBox.setPrefWidth(200);
 		obj.bookingDatePicker.setPrefWidth(200);
+		obj.errorMessage.setStyle("-fx-text-fill: RED;");
 	}
 	
 	public void setActions(BookPCObj obj) {
@@ -97,7 +100,7 @@ public class BookPCPage {
 			}
 			
 	        ObservableList<PC> pcList = FXCollections.observableArrayList(
-	        		PCController.getInstance().getPCDataByDateAndId(actualId, newValue.toString()));
+	        		PCController.getInstance().getPCDetailByDateAndId(actualId, newValue.toString()));
 	        
 			obj.pcTableView.setItems(pcList);
 			
@@ -111,18 +114,37 @@ public class BookPCPage {
         });
 		
 		obj.pcComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue != null && !newValue.equals("Select All")) {
-	            System.out.println("Triggered");
-	            int actualId = Integer.parseInt(newValue.split(" ", 2)[1]);
+			if (newValue != null) {
+				
+				int actualId = -1;
+	            if (!obj.pcComboBox.getValue().equals("Select All")) {
+					actualId = Integer.parseInt(newValue.split(" ", 2)[1]);
+				}
 
 	            ObservableList<PC> pcList = FXCollections.observableArrayList(
-	                    PCController.getInstance().getPCDataByDateAndId(actualId, obj.bookingDatePicker.getValue().toString()));
+	                    PCController.getInstance().getPCDetailByDateAndId(actualId, obj.bookingDatePicker.getValue().toString()));
 
 	            obj.pcTableView.setItems(pcList);
 	        }
         });
+		
+		obj.bookButton.setOnMouseClicked(e -> {
+			if (obj.pcComboBox.getValue().equals("Select All")) {
+				obj.errorMessage.setText("Please select a PC!");
+			} else {
+				obj.errorMessage.setText("");
+				
+				int id = Integer.parseInt(obj.pcComboBox.getValue().split(" ", 2)[1]);
+
+				if(PCController.getInstance().getPCDetail(id) != null) {
+					PCBookController.getInstance().getPCBookedData(obj, id, obj.bookingDatePicker.getValue().toString());
+				} else {
+					obj.errorMessage.setText("PC does not exist");
+				}
+			}
+		});
 	}
-	
+
 	public BookPCPage(Stage stage) {
 		BookPCObj obj = new BookPCObj();
 		initialize(obj, stage);

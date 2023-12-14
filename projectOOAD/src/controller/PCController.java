@@ -20,7 +20,13 @@ public class PCController {
 		return SingletonHelper.pcDB.getAllData();
 	}
 	
-	public ArrayList<PC> getPCDataByDateAndId(int id, String bookingDate){
+	public ArrayList<PC> getPCDetailByDateAndId(int id, String bookingDate){
 		return SingletonHelper.pcDB.getPCDataByDateAndId(id, bookingDate);
 	}
+
+	public PC getPCDetail(int id) {
+		return SingletonHelper.pcDB.getPCDetail(id);
+	}
+	
+	
 }

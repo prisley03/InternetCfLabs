@@ -20,7 +20,6 @@ public class Main extends Application{
 	@Override
 	public void start(Stage arg0) throws Exception {
 		ConnectDB.getInstance().initializeConnection();
-		//new BookPCPage(arg0);
 		UserController.getInstance().navigateToRegister(arg0);
 	}
 }

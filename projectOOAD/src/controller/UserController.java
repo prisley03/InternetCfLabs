@@ -102,7 +102,6 @@ public class UserController {
 	
 	public ArrayList<User> getAllUserData(){
 		ArrayList<User> userList = new ArrayList<>();
-		
 		return userList;
 	}
 }

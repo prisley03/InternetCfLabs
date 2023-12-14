@@ -3,5 +3,6 @@ module projectOOAD {
 	requires javafx.controls;
 	requires java.sql;
 	opens main;
+	opens model.object;
 	opens view;
 }

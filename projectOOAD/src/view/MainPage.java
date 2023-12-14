@@ -1,38 +1,51 @@
 package view;
 
 import header.HeaderMenu;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.object.User;
+import view.LoginPage.LoginComp;
 
 public class MainPage {
 
-	public class MainPageVar {
+	public class MainPageObj {
 		private BorderPane homePane = new BorderPane();
 		
 		private User activeUser = User.getActiveUser();
 		private Label homeLabel = new Label(String.format("Welcome, %s", activeUser.getUsername()));
+		private Label messageLabel = new Label("Please choose the menu options you'd like to access from the menu bar.");
 		private Scene mainPageScene;
+		private VBox messageContainer = new VBox(10);
 	}
 	
-	public Scene initialize(MainPageVar obj, Stage stage) {
+	public Scene initialize(MainPageObj obj, Stage stage) {
 		obj.homePane.setTop(new HeaderMenu().getMenuHeader(stage));
-		obj.homePane.setCenter(obj.homeLabel);
+		obj.messageContainer.getChildren().addAll(obj.homeLabel, obj.messageLabel);
+		obj.homePane.setCenter(obj.messageContainer);
 		obj.mainPageScene = new Scene(obj.homePane, 800, 500);
 		
 		return obj.mainPageScene;
 	}
 	
+	public void setStyle(MainPageObj obj) {
+		obj.homeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+		obj.messageContainer.setAlignment(Pos.CENTER);
+		obj.homePane.setCenter(obj.messageContainer);
+	}
+	
 	public MainPage(Stage stage) {
-		MainPageVar obj = new MainPageVar();
+		MainPageObj obj = new MainPageObj();
 		initialize(obj, stage);
+		setStyle(obj);
+	
 		stage.setScene(obj.mainPageScene);
-		Rectangle2D screenBound = Screen.getPrimary().getBounds();
-		stage.setX((screenBound.getWidth() - stage.getWidth())/2);
-		stage.setY((screenBound.getHeight() - stage.getHeight())/2);
 	}
 }

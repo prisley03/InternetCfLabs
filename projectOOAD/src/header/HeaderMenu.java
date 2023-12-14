@@ -6,6 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import model.object.User;
+import view.ViewAllPC;
 
 public class HeaderMenu {
 	
@@ -36,6 +37,22 @@ public class HeaderMenu {
 		obj.logOutMenuItem.setOnAction(e -> {
 			User.setActiveUser(null);
 			UserController.getInstance().navigateToRegister(stage);
+		});
+		
+		obj.viewAllPCMenuItem.setOnAction(e -> {
+			new ViewAllPC(stage);
+		});
+		
+		obj.viewTransactionHistoryMenuItem.setOnAction(e -> {
+					
+		});
+		
+		obj.bookPCMenuItem.setOnAction(e -> {
+			
+		});
+		
+		obj.makeReportMenuItem.setOnAction(e -> {
+			
 		});
 	}
 	

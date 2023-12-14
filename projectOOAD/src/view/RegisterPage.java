@@ -46,14 +46,14 @@ public class RegisterPage {
 		comp.sceneBox.getChildren().addAll(comp.registerContainer);
 
 		comp.mainPane.setCenter(comp.sceneBox);
-		comp.registerScene = new Scene(comp.mainPane, 800, 500);
+		comp.registerScene = new Scene(comp.mainPane, 500, 600);
 		return comp.registerScene;
 	}
 	
 	public void setStyle(RegistComp comp) {
 		comp.errorMessage.setStyle("-fx-text-fill: RED;");
 		comp.registPageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-		comp.registerContainer.setMaxWidth(500);
+		comp.registerContainer.setMaxWidth(350);
 		comp.registerContainer.setAlignment(Pos.CENTER);
 		comp.mainPane.setCenter(comp.registerContainer);
 	}

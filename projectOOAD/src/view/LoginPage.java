@@ -43,7 +43,7 @@ public class LoginPage {
 		
 		comp.sceneBox.getChildren().addAll(comp.loginContainer);
 		comp.mainPane.setCenter(comp.sceneBox);
-		comp.LoginScene = new Scene(comp.mainPane, 800, 500);
+		comp.LoginScene = new Scene(comp.mainPane, 500, 600);
 		
 		return comp.LoginScene;
 	}
@@ -51,7 +51,7 @@ public class LoginPage {
 	public void setStyle(LoginComp comp) {
 		comp.errorMessage.setStyle("-fx-text-fill: RED;");
 		comp.loginPageTitle.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-		comp.loginContainer.setMaxWidth(500);
+		comp.loginContainer.setMaxWidth(350);
 		comp.loginContainer.setAlignment(Pos.CENTER);
 		comp.mainPane.setCenter(comp.loginContainer);
 	}

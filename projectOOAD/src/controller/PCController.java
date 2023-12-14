@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.database.PCDatabase;
@@ -18,4 +19,14 @@ public class PCController {
 	public ArrayList<PC> getAllPCData(){
 		return SingletonHelper.pcDB.getAllData();
 	}
+	
+	public ArrayList<PC> getPCDetailByDateAndId(int id, String bookingDate){
+		return SingletonHelper.pcDB.getPCDataByDateAndId(id, bookingDate);
+	}
+
+	public PC getPCDetail(int id) {
+		return SingletonHelper.pcDB.getPCDetail(id);
+	}
+	
+	
 }

@@ -2,17 +2,14 @@ package view;
 
 import header.HeaderMenu;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.object.User;
-import view.LoginPage.LoginComp;
 
 public class MainPage {
 

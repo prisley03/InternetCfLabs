@@ -4,5 +4,6 @@ module projectOOAD {
 	requires java.sql;
 	opens main;
 	opens model.object;
+	opens model.database;
 	opens view;
 }

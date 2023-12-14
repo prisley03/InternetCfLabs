@@ -1,10 +1,16 @@
 package main;
 
+import java.util.ArrayList;
+
 import connection.ConnectDB;
+import controller.PCController;
 import controller.UserController;
 import javafx.application.Application;
+import model.object.PC;
 import javafx.stage.Stage;
-import model.database.PCDatabase;
+import view.BookPCPage;
+import view.MakeReportPage;
+import view.ViewAllPC;
 
 public class Main extends Application{
 

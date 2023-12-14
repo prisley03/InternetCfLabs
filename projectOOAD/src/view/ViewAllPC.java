@@ -5,13 +5,11 @@ import header.HeaderMenu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.object.PC;
 
@@ -23,8 +21,6 @@ public class ViewAllPC {
 		private TableView<PC> allPCTableView = new TableView<>();	
 		private TableColumn<PC, Integer> pcIDColumn = new TableColumn<>("PC_ID");
 		private TableColumn<PC, String> pcConditionColumn = new TableColumn<>("PC_Condition");
-		private Label titleLabel = new Label("View All PC");
-		private VBox containerBox;
 		
 	}
 	
@@ -58,7 +54,7 @@ public class ViewAllPC {
 		setStyle(obj);
 		
 		stage.setScene(obj.allPCScene);
-		stage.setTitle("All PC");
+		stage.setTitle("View All PC");
 		stage.setResizable(false);
 		stage.show();
 	}

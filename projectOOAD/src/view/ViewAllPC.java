@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.object.PC;
+import model.object.User;
 
 public class ViewAllPC {
 	public class ViewAllPCObj {
@@ -47,9 +48,10 @@ public class ViewAllPC {
 		
 	}
 	
-	public ViewAllPC(Stage stage, String role) {
+	public ViewAllPC(Stage stage) {
+		User user = User.getActiveUser();
 		ViewAllPCObj obj = new ViewAllPCObj();
-		initialize(obj, stage, role);
+		initialize(obj, stage, user.getUserRole());
 		bindData(obj);
 		setStyle(obj);
 		

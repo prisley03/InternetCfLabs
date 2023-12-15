@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.object.PC;
 import model.object.User;
@@ -128,12 +130,22 @@ public class MakeReportPage {
 
     comp.containerBox.setAlignment(Pos.CENTER);
     comp.containerBox.setMaxWidth(350);
+    
+    comp.titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+    comp.tableLabel.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+    
+    comp.message.setStyle("-fx-text-fill: RED;");
+    if(comp.message.equals("Successfully Inserted")) {
+    	comp.message.setStyle("-fx-text-fill: GREEN;");
+    }
+    
     comp.reportPane.setCenter(comp.containerBox);
   }
 
-  public MakeReportPage(Stage stage, String role) {
+  public MakeReportPage(Stage stage) {
+	User user = User.getActiveUser();
     MakeReportObj obj = new MakeReportObj();
-    initialize(obj, stage, role);
+    initialize(obj, stage, user.getUserRole());
     bindData(obj);
     setStyle(obj);
     setActions(obj);

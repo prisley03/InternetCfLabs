@@ -38,6 +38,11 @@ public class TransactionDetailDatabase {
 		}
 				
 		return detailList;
-		
+	}
+	
+	public boolean addNewTransactionDetail(int pcID, String custName, String date) {
+		String query = String.format("INSERT INTO transactiondetail(PC_ID, CustomerName, BookedTime) VALUES (%d, '%s', '%s')", pcID, custName, date);
+		con.executeUpdateQuery(query);
+		return true;
 	}
 }

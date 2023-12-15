@@ -25,6 +25,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.object.PC;
+import model.object.User;
 import view.ViewAllPC.ViewAllPCObj;
 
 public class BookPCPage {
@@ -48,7 +49,7 @@ public class BookPCPage {
 
 	}
 	
-	public Scene initialize(BookPCObj obj, Stage stage){
+	public Scene initialize(BookPCObj obj, Stage stage, String role){
 		obj.pcIDColumn.setCellValueFactory(new PropertyValueFactory<>("pcId"));
 		obj.pcConditionColumn.setCellValueFactory(new PropertyValueFactory<>("pcCondition"));
 	    obj.pcTableView.getColumns().addAll(obj.pcIDColumn, obj.pcConditionColumn);
@@ -59,7 +60,7 @@ public class BookPCPage {
 	    		obj.pcComboBox, obj.bookingDateLabel, 
 	    		obj.bookingDatePicker, obj.bookButton, obj.errorMessage);
 	    
-	   	obj.outerContainer.setTop(new HeaderMenu().getMenuHeader(stage));
+	   	obj.outerContainer.setTop(new HeaderMenu().getMenuHeader(stage, role));
 	    obj.splitPane.setDividerPositions(0.18);
 	    obj.splitPane.getItems().addAll(obj.pcTableView, obj.bookPCForm);
 	    obj.outerContainer.setCenter(obj.splitPane);
@@ -147,8 +148,9 @@ public class BookPCPage {
 	}
 
 	public BookPCPage(Stage stage) {
+		User user = User.getActiveUser();
 		BookPCObj obj = new BookPCObj();
-		initialize(obj, stage);
+		initialize(obj, stage, user.getUserRole());
 		bindData(obj);
 		setStyle(obj);
 		setActions(obj);

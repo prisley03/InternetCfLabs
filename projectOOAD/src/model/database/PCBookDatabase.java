@@ -2,6 +2,8 @@ package model.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 import connection.ConnectDB;
@@ -45,6 +47,12 @@ public class PCBookDatabase implements DAO<PCBook> {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void delete(LocalDate date) {
+		String query = String.format("DELETE FROM mspcbook WHERE BookedDate = '%s'", date);
+		con.executeUpdateQuery(query);
+		return;
+	}
 
 	public PCBook getPCBookedData(int id, String date) {
 		String query = String.format("SELECT * FROM mspc a\r\n"
@@ -74,6 +82,33 @@ public class PCBookDatabase implements DAO<PCBook> {
 		String query = String.format("INSERT INTO mspcbook(PC_ID, UserID, BookedDate) VALUES(%d, %d, '%s')", pcId, userId, bookedDate);
 		con.executeUpdateQuery(query);
 		return;
+	}
+	
+	public ArrayList<PCBook> getAllPCBooked() {
+		ArrayList<PCBook> bookedPC = new ArrayList<PCBook>();
+		
+		String query = "SELECT * FROM mspcbook";
+		ResultSet rs = con.executeSelectQuery(query);
+		
+		try {
+			while(rs.next()) {
+				int bookID = rs.getInt("BookID");
+				int pcID = rs.getInt("PC_ID");
+				int userID = rs.getInt("UserID");
+				Date bookedDate = rs.getDate("BookedDate");
+				
+				bookedPC.add(new PCBook(bookID, pcID, userID, bookedDate));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bookedPC;
+	}
+	
+	public void updateChangedPCToUser(int pcID, int userID, String date) {
+		String query = String.format("UPDATE mspcbook SET PC_ID = %d WHERE UserID = %d AND BookedDate = '%s'", pcID, userID, date);
+		con.executeUpdateQuery(query);
 	}
 
 }

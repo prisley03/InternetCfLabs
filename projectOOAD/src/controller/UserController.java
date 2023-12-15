@@ -89,6 +89,11 @@ public class UserController {
 		return user;
 	}
 	
+	public User getUserByName(String name) {
+		User user = SingletonHelper.userDB.selectByName(name);
+		return user;
+	}
+	
 	public String getUserRole(User user) {
 		return user.getUserRole();
 	}
@@ -107,5 +112,9 @@ public class UserController {
 	public ArrayList<User> getAllUserData(){
 		ArrayList<User> userList = new ArrayList<>();
 		return userList;
+	}
+	
+	public User getUserDataById(int id) {
+		return SingletonHelper.userDB.selectById(id);
 	}
 }

@@ -24,13 +24,13 @@ public class ViewAllPC {
 		
 	}
 	
-	public Scene initialize(ViewAllPCObj obj, Stage stage){
+	public Scene initialize(ViewAllPCObj obj, Stage stage, String role){
 		obj.pcIDColumn.setCellValueFactory(new PropertyValueFactory<>("pcId"));
 		obj.pcConditionColumn.setCellValueFactory(new PropertyValueFactory<>("pcCondition"));
 	    obj.allPCTableView.getColumns().addAll(obj.pcIDColumn, obj.pcConditionColumn);
 		
 	    obj.outerContainer.setContent(obj.allPCTableView);
-	    obj.allPCpane.setTop(new HeaderMenu().getMenuHeader(stage));
+	    obj.allPCpane.setTop(new HeaderMenu().getMenuHeader(stage, role));
 
 	    obj.allPCpane.setCenter(obj.allPCTableView);
 		obj.allPCScene = new Scene(obj.allPCpane, 800, 500);
@@ -47,9 +47,9 @@ public class ViewAllPC {
 		
 	}
 	
-	public ViewAllPC(Stage stage) {
+	public ViewAllPC(Stage stage, String role) {
 		ViewAllPCObj obj = new ViewAllPCObj();
-		initialize(obj, stage);
+		initialize(obj, stage, role);
 		bindData(obj);
 		setStyle(obj);
 		

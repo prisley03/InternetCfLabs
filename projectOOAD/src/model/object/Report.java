@@ -5,10 +5,10 @@ import java.util.Date;
 public class Report {
 	private int reportId;
 	private String userRole;
-	private String pcId;
+	private int pcId;
 	private String reportNote;
 	private Date reportDate;
-	public Report(int reportId, String userRole, String pcId, String reportNote, Date reportDate) {
+	public Report(int reportId, String userRole, int pcId, String reportNote, Date reportDate) {
 		super();
 		this.reportId = reportId;
 		this.userRole = userRole;
@@ -28,10 +28,10 @@ public class Report {
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
-	public String getPcId() {
+	public int getPcId() {
 		return pcId;
 	}
-	public void setPcId(String pcId) {
+	public void setPcId(int pcId) {
 		this.pcId = pcId;
 	}
 	public String getReportNote() {

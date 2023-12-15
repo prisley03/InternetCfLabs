@@ -31,8 +31,8 @@ public class UserController {
 		new LoginPage(stage);
 	}
 	
-	public void navigateToMainPage(Stage stage) {
-		new MainPage(stage);
+	public void navigateToMainPage(Stage stage, String role) {
+		new MainPage(stage, role);
 	}
 	
 	public boolean validateRegister(RegistComp obj) {
@@ -87,6 +87,10 @@ public class UserController {
 	public User getUserData(String Username, String Password) {		
 		User user = SingletonHelper.userDB.login(Username, Password);
 		return user;
+	}
+	
+	public String getUserRole(User user) {
+		return user.getUserRole();
 	}
 	
 	public void addNewUser(String Username, String Password, int Age) {

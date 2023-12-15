@@ -23,8 +23,8 @@ public class MainPage {
 		private VBox messageContainer = new VBox(10);
 	}
 	
-	public Scene initialize(MainPageObj obj, Stage stage) {
-		obj.homePane.setTop(new HeaderMenu().getMenuHeader(stage));
+	public Scene initialize(MainPageObj obj, Stage stage, String role) {
+		obj.homePane.setTop(new HeaderMenu().getMenuHeader(stage, role));
 		obj.messageContainer.getChildren().addAll(obj.homeLabel, obj.messageLabel);
 		obj.homePane.setCenter(obj.messageContainer);
 		obj.mainPageScene = new Scene(obj.homePane, 800, 500);
@@ -38,9 +38,9 @@ public class MainPage {
 		obj.homePane.setCenter(obj.messageContainer);
 	}
 	
-	public MainPage(Stage stage) {
+	public MainPage(Stage stage, String role) {
 		MainPageObj obj = new MainPageObj();
-		initialize(obj, stage);
+		initialize(obj, stage, role);
 		setStyle(obj);
 	
 		stage.setScene(obj.mainPageScene);

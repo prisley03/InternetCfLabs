@@ -31,8 +31,8 @@ public class UserController {
 		new LoginPage(stage);
 	}
 	
-	public void navigateToMainPage(Stage stage) {
-		new MainPage(stage);
+	public void navigateToMainPage(Stage stage, String role) {
+		new MainPage(stage, role);
 	}
 	
 	public boolean validateRegister(RegistComp obj) {
@@ -89,6 +89,15 @@ public class UserController {
 		return user;
 	}
 	
+	public User getUserByName(String name) {
+		User user = SingletonHelper.userDB.selectByName(name);
+		return user;
+	}
+	
+	public String getUserRole(User user) {
+		return user.getUserRole();
+	}
+	
 	public void addNewUser(String Username, String Password, int Age) {
 		User user = new User(0, Username, Password, "Customer", Age);
 		SingletonHelper.userDB.insert(user);
@@ -103,5 +112,9 @@ public class UserController {
 	public ArrayList<User> getAllUserData(){
 		ArrayList<User> userList = new ArrayList<>();
 		return userList;
+	}
+	
+	public User getUserDataById(int id) {
+		return SingletonHelper.userDB.selectById(id);
 	}
 }

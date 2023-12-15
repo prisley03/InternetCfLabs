@@ -83,6 +83,22 @@ public class UserDatabase implements DAO<User> {
 	@Override
 	public User selectById(int id) {
 		String query = String.format("SELECT * FROM msuser WHERE UserID = '%d'", id);
+		ResultSet rs = con.executeSelectQuery(query);
+		
+		try {
+			if(rs.next()) {
+				int userID = rs.getInt("UserID");
+				String userName = rs.getString("UserName");
+				String userPassword = rs.getString("UserPassword");
+				String userRole = rs.getString("UserRole");
+				int userAge = rs.getInt("UserAge");
+				
+				return new User(userID, userName, userPassword, userRole, userAge);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 }

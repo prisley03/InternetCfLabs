@@ -29,7 +29,7 @@ public class TransactionHistoryPage {
 		private TableColumn<TransactionDetail, LocalDateTime> bookedTimeColumn = new TableColumn<>("Booked Time");
 	}
 	
-	public Scene initialize(TransactionHistoryPageObj obj, Stage stage){
+	public Scene initialize(TransactionHistoryPageObj obj, Stage stage, String role){
 		obj.transactionIdColumn.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
 		obj.pcIDColumn.setCellValueFactory(new PropertyValueFactory<>("pcId"));
 		obj.customerColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -40,7 +40,7 @@ public class TransactionHistoryPage {
 				obj.customerColumn, obj.bookedTimeColumn);
 		
 	    obj.outerContainer.setContent(obj.transactionDetailHistoryTableView);
-	    obj.transactionHistoryPane.setTop(new HeaderMenu().getMenuHeader(stage));
+	    obj.transactionHistoryPane.setTop(new HeaderMenu().getMenuHeader(stage, role));
 
 	    obj.transactionHistoryPane.setCenter(obj.transactionDetailHistoryTableView);
 		obj.transactionDetailHistoryScene = new Scene(obj.transactionHistoryPane, 800, 500);
@@ -60,8 +60,9 @@ public class TransactionHistoryPage {
 	}
 	
 	public TransactionHistoryPage(Stage stage) {
+		User user = User.getActiveUser();
 		TransactionHistoryPageObj obj = new TransactionHistoryPageObj();
-		initialize(obj, stage);
+		initialize(obj, stage, user.getUserRole());
 		bindData(obj);
 		setStyle(obj);
 		

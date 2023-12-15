@@ -38,7 +38,19 @@ public class PCDatabase implements DAO<PC>{
 
 	@Override
 	public PC selectById(int id) {
-		// TODO Auto-generated method stub
+		String query = String.format("SELECT * FROM mspc WHERE PC_ID = %d", id);
+		ResultSet rs = con.executeSelectQuery(query);
+		
+		try {
+			if(rs.next()) {
+				int pcId = rs.getInt("PC_ID");
+				String pcCondition = rs.getString("PC_Condition");
+				
+				return new PC(pcId, pcCondition);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

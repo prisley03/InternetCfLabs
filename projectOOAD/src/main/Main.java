@@ -7,8 +7,10 @@ import controller.PCController;
 import controller.UserController;
 import javafx.application.Application;
 import model.object.PC;
+import model.object.User;
 import javafx.stage.Stage;
 import view.BookPCPage;
+import view.MainPage;
 import view.MakeReportPage;
 import view.ViewAllPC;
 
@@ -21,6 +23,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage arg0) throws Exception {
 		ConnectDB.getInstance().initializeConnection();
-		UserController.getInstance().navigateToRegister(arg0);
+		User.setActiveUser(UserController.getInstance().getUserData("AveAdmin", "ave123"));
+//		UserController.getInstance().navigateToRegister(arg0);
 	}
 }

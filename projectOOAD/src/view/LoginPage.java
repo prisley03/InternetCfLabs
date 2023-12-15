@@ -63,7 +63,7 @@ public class LoginPage {
 			if(userController.validateLogin(obj)) {
 				User activeUser = userController.getUserData(obj.usernameField.getText(), obj.passwordField.getText());			
 				User.setActiveUser(activeUser);
-				new ViewAllPC(stage);			
+				new MainPage(stage);			
 			}			
 		});
 		

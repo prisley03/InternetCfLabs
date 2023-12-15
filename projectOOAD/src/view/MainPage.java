@@ -45,5 +45,6 @@ public class MainPage {
 		setStyle(obj);
 	
 		stage.setScene(obj.mainPageScene);
+		stage.show();
 	}
 }

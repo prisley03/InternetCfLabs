@@ -40,10 +40,10 @@ public class BookPCPage {
 				
 		private Label bookingFormLabel = new Label("Book PC");
 		private Label bookingDateLabel = new Label("Select Booking Date");
-		private DatePicker bookingDatePicker = new DatePicker();
+		public DatePicker bookingDatePicker = new DatePicker();
 		
 		private Label pcBookLabel = new Label("Select PC to Book");
-		private ComboBox<String> pcComboBox = new ComboBox<>();
+		public ComboBox<String> pcComboBox = new ComboBox<>();
 		private Button bookButton = new Button("Book Now");
 		public Label errorMessage = new Label();
 
@@ -131,20 +131,16 @@ public class BookPCPage {
         });
 		
 		obj.bookButton.setOnMouseClicked(e -> {
-			if (obj.pcComboBox.getValue().equals("Select All")) {
-				obj.errorMessage.setText("Please select a PC!");
-			} else {
-				obj.errorMessage.setText("");
-				
-				int id = Integer.parseInt(obj.pcComboBox.getValue().split(" ", 2)[1]);
+            if(PCBookController.getInstance().validatePCBook(obj)) {
+                int id = Integer.parseInt(obj.pcComboBox.getValue().split(" ", 2)[1]);
 
-				if(PCController.getInstance().getPCDetail(id) != null) {
-					PCBookController.getInstance().getPCBookedData(obj, id, obj.bookingDatePicker.getValue().toString());
-				} else {
-					obj.errorMessage.setText("PC does not exist");
-				}
-			}
-		});
+                if(PCController.getInstance().getPCDetail(id) != null) {
+                    PCBookController.getInstance().getPCBookedData(obj, id, obj.bookingDatePicker.getValue().toString());
+                } else {
+                    obj.errorMessage.setText("PC does not exist");
+                }
+            }
+        });
 	}
 
 	public BookPCPage(Stage stage) {

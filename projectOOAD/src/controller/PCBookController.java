@@ -35,7 +35,20 @@ public class PCBookController {
 		}
 	
 		return;
-	} 
+	}
+	
+	public boolean validatePCBook(BookPCObj obj) {
+        if (obj.pcComboBox.getValue().equals("Select All")) {
+            obj.errorMessage.setText("Please select a PC!");
+            return false;
+        } else if (obj.bookingDatePicker.getValue().isBefore(LocalDate.now())) {
+            obj.errorMessage.setText("Please select an upcoming date!");
+            return false;
+        }
+
+        obj.errorMessage.setText("");
+        return true;
+    }
 	
 	public ArrayList<PCBook> getAllPCBookedData() {
 		return SingletonHelper.pcBookDB.getAllPCBooked();

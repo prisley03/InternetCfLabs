@@ -6,9 +6,10 @@ import connection.ConnectDB;
 import controller.PCController;
 import controller.UserController;
 import javafx.application.Application;
-import javafx.stage.Stage;
 import model.object.PC;
+import javafx.stage.Stage;
 import view.BookPCPage;
+import view.MakeReportPage;
 import view.ViewAllPC;
 
 public class Main extends Application{
@@ -20,7 +21,6 @@ public class Main extends Application{
 	@Override
 	public void start(Stage arg0) throws Exception {
 		ConnectDB.getInstance().initializeConnection();
-		//new BookPCPage(arg0);
 		UserController.getInstance().navigateToRegister(arg0);
 	}
 }

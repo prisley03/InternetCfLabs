@@ -1,10 +1,12 @@
 package model.database;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import connection.ConnectDB;
 import model.object.PC;
+import model.object.User;
 
 public class PCDatabase implements DAO<PC>{
 	
@@ -93,6 +95,24 @@ public class PCDatabase implements DAO<PC>{
 		}
 				
 		return pcList;
+	}
+
+	public PC getPCDetail(int id) {
+		String query = String.format("SELECT * FROM mspc WHERE PC_ID = %d", id);
+		
+		ResultSet rs = con.executeSelectQuery(query);
+		
+		try {
+			if(rs.next()) {
+				int pcId  = rs.getInt("PC_ID");
+				String pcCondition = rs.getString("PC_Condition");
+				return new PC(pcId, pcCondition);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 }

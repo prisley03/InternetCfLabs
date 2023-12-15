@@ -40,7 +40,7 @@ public class RegisterPage {
 	    Hyperlink loginLink = new Hyperlink("Already have an account? Login here");
 	}
 	
-	public Scene Initialization(RegistComp comp){
+	public Scene initialization(RegistComp comp){
 		comp.registerContainer.getChildren().addAll(comp.registPageTitle, comp.usernameLabel,comp.usernameField, comp.passwordLabel, comp.passwordField, comp.cfPasswordLabel, 
 				comp.cfPasswordField, comp.ageLabel, comp.ageSpinner, comp.registButton, comp.loginLink, comp.errorMessage);
 		comp.sceneBox.getChildren().addAll(comp.registerContainer);
@@ -75,7 +75,7 @@ public class RegisterPage {
 
 	public RegisterPage(Stage stage) {
 		RegistComp obj = new RegistComp();
-		Initialization(obj);
+		initialization(obj);
 		setStyle(obj);
 		setActions(obj, stage);
 		

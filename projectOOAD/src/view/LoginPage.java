@@ -32,7 +32,8 @@ public class LoginPage {
     public Label errorMessage = new Label();
 
     public Button loginButton = new Button("Login");
-
+    
+    //User will be redirected to the register page
     Hyperlink regisLink = new Hyperlink(
       "Don't have an account yet? Register here"
     );
@@ -71,13 +72,16 @@ public class LoginPage {
     UserController userController = UserController.getInstance();
 
     obj.loginButton.setOnMouseClicked(e -> {
-      if (userController.validateLogin(obj)) {
+      if (userController.validateLogin(obj)) { //Ensure user data is valid before permitted to access application
         User activeUser = userController.getUserData(
           obj.usernameField.getText(),
           obj.passwordField.getText()
         );
+        
+        //User is static, which can be accessed anywhere
+        //This is done to check user roles to display different operations
         User.setActiveUser(activeUser);
-        new ViewAllPC(stage);
+        new ViewAllPC(stage); //Directed to view all pc on login success
       }
     });
 

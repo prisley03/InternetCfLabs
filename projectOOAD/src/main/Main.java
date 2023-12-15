@@ -16,7 +16,9 @@ public class Main extends Application {
 
 	@Override
   	public void start(Stage arg0) throws Exception {
+		//Setting up initial DB connection
 		ConnectDB.getInstance().initializeConnection();
-		UserController.getInstance().navigateToRegister(arg0);
+		//User will directly be redirected to the register page
+		UserController.getInstance().navigateToRegister(arg0); 
 	}
 }

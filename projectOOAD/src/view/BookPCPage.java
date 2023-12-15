@@ -29,6 +29,9 @@ import model.object.User;
 import view.ViewAllPC.ViewAllPCObj;
 
 public class BookPCPage {
+	
+	//View wise, this page is split into two using splitPane
+	//this is done to show the list of PCs on the left and the book PC form on the right
 	public class BookPCObj {
 		private Scene bookPCScene;
 		private BorderPane outerContainer = new BorderPane();
@@ -70,10 +73,13 @@ public class BookPCPage {
 	}
 
 	public void bindData(BookPCObj obj) {
+		
+		//Get initial all available PC data based on todays date
         ObservableList<PC> pcList = FXCollections.observableArrayList(
         		PCController.getInstance().getPCDetailByDateAndId(-1, LocalDate.now().toString()));
 		obj.pcTableView.setItems(pcList);
 		
+		//The same is done for the drop down
 		obj.pcComboBox.getItems().add("Select All");
 		
 		for(PC pc : pcList) {
@@ -92,15 +98,18 @@ public class BookPCPage {
 	}
 	
 	public void setActions(BookPCObj obj) {
-				
+		
+		//This ensures that the list of available PCs are refreshed on field change
 		obj.bookingDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			
 			int actualId = -1;
 			
+			//Make sure to fetch the correct PC ID, else get all data
 			if (!obj.pcComboBox.getValue().equals("Select All")) {
 				actualId = Integer.parseInt(obj.pcComboBox.getValue().split(" ", 2)[1]);
 			}
 			
+			//Get data based on selected date and existed PC ID
 	        ObservableList<PC> pcList = FXCollections.observableArrayList(
 	        		PCController.getInstance().getPCDetailByDateAndId(actualId, newValue.toString()));
 	        
@@ -115,14 +124,17 @@ public class BookPCPage {
 			obj.pcComboBox.getSelectionModel().selectFirst();			
         });
 		
+		//This ensures that the list of available PCs are refreshed on field change
 		obj.pcComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				
+				//Make sure to fetch the correct PC ID, else get all data
 				int actualId = -1;
 	            if (!obj.pcComboBox.getValue().equals("Select All")) {
 					actualId = Integer.parseInt(newValue.split(" ", 2)[1]);
 				}
 
+	          //Get data based on PC ID and existing date
 	            ObservableList<PC> pcList = FXCollections.observableArrayList(
 	                    PCController.getInstance().getPCDetailByDateAndId(actualId, obj.bookingDatePicker.getValue().toString()));
 
@@ -131,10 +143,10 @@ public class BookPCPage {
         });
 		
 		obj.bookButton.setOnMouseClicked(e -> {
-            if(PCBookController.getInstance().validatePCBook(obj)) {
-                int id = Integer.parseInt(obj.pcComboBox.getValue().split(" ", 2)[1]);
+            if(PCBookController.getInstance().validatePCBook(obj)) { //Make sure PC is available to book
+                int id = Integer.parseInt(obj.pcComboBox.getValue().split(" ", 2)[1]); //Make sure to fetch the correct PC ID, else get all data
 
-                if(PCController.getInstance().getPCDetail(id) != null) {
+                if(PCController.getInstance().getPCDetail(id) != null) { //Book PC if exists
                     PCBookController.getInstance().getPCBookedData(obj, id, obj.bookingDatePicker.getValue().toString());
                 } else {
                     obj.errorMessage.setText("PC does not exist");

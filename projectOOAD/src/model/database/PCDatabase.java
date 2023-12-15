@@ -16,6 +16,7 @@ public class PCDatabase implements DAO<PC>{
 		con = ConnectDB.getInstance();
 	}
 	
+	//Retrieve all PC data without any filters
 	public ArrayList<PC> getAllData(){ 
 		ArrayList<PC> pcList = new ArrayList<PC>();
 		
@@ -35,7 +36,8 @@ public class PCDatabase implements DAO<PC>{
 				
 		return pcList;
 	}
-
+	
+	//Select PC based on ID
 	@Override
 	public PC selectById(int id) {
 		String query = String.format("SELECT * FROM mspc WHERE PC_ID = %d", id);
@@ -77,7 +79,8 @@ public class PCDatabase implements DAO<PC>{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	//Retrieve all available usable PCs based on booking date and ID
 	public ArrayList<PC> getPCDataByDateAndId(int id, String bookingDate) {
 		ArrayList<PC> pcList = new ArrayList<PC>();
 		

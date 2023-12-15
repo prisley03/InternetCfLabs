@@ -22,6 +22,7 @@ public class PCBookController {
 		return SingletonHelper.INSTANCE;
 	}
 	
+	//This function ensures that the PC is available to be booked
 	public void getPCBookedData(BookPCObj obj, int id, String date) {
 		PCBook pcBook = SingletonHelper.pcBookDB.getPCBookedData(id, date);
 		
@@ -37,6 +38,7 @@ public class PCBookController {
 		return;
 	}
 	
+	//This validate the current form data to ensure to error occurs when booking
 	public boolean validatePCBook(BookPCObj obj) {
         if (obj.pcComboBox.getValue().equals("Select All")) {
             obj.errorMessage.setText("Please select a PC!");

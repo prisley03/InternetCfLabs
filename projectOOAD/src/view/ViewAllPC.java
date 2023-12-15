@@ -15,6 +15,8 @@ import model.object.PC;
 import model.object.User;
 
 public class ViewAllPC {
+	
+	//TableView will be used to display all PCs as a list
 	public class ViewAllPCObj {
 		private Scene allPCScene;
 		private BorderPane allPCpane = new BorderPane();
@@ -31,7 +33,7 @@ public class ViewAllPC {
 	    obj.allPCTableView.getColumns().addAll(obj.pcIDColumn, obj.pcConditionColumn);
 		
 	    obj.outerContainer.setContent(obj.allPCTableView);
-	    obj.allPCpane.setTop(new HeaderMenu().getMenuHeader(stage, role));
+	    obj.allPCpane.setTop(new HeaderMenu().getMenuHeader(stage, role)); //different roles will have different menus
 
 	    obj.allPCpane.setCenter(obj.allPCTableView);
 		obj.allPCScene = new Scene(obj.allPCpane, 800, 500);
@@ -40,6 +42,7 @@ public class ViewAllPC {
 	}
 	
 	public void bindData(ViewAllPCObj obj) {
+		//Get all data from the database via controller to display
         ObservableList<PC> pcList = FXCollections.observableArrayList(PCController.getInstance().getAllPCData());
 		obj.allPCTableView.setItems(pcList);
 	}

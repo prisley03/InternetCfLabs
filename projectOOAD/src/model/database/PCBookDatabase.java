@@ -53,7 +53,8 @@ public class PCBookDatabase implements DAO<PCBook> {
 		con.executeUpdateQuery(query);
 		return;
 	}
-
+	
+	//Retrieve PCBook data based on PCID and BookingDate
 	public PCBook getPCBookedData(int id, String date) {
 		String query = String.format("SELECT * FROM mspc a\r\n"
 				+ "JOIN mspcbook b ON a.PC_ID = b.PC_ID\r\n"
@@ -77,13 +78,15 @@ public class PCBookDatabase implements DAO<PCBook> {
 		
 		return null;
 	}
-
+	
+	//Insert new PCBook
 	public void AddNewBook(int pcId, int userId, String bookedDate) {
 		String query = String.format("INSERT INTO mspcbook(PC_ID, UserID, BookedDate) VALUES(%d, %d, '%s')", pcId, userId, bookedDate);
 		con.executeUpdateQuery(query);
 		return;
 	}
 	
+	//Retrieving all data without filter
 	public ArrayList<PCBook> getAllPCBooked() {
 		ArrayList<PCBook> bookedPC = new ArrayList<PCBook>();
 		
@@ -106,6 +109,7 @@ public class PCBookDatabase implements DAO<PCBook> {
 		return bookedPC;
 	}
 	
+	//Change user on existing PC booking
 	public void updateChangedPCToUser(int pcID, int userID, String date) {
 		String query = String.format("UPDATE mspcbook SET PC_ID = %d WHERE UserID = %d AND BookedDate = '%s'", pcID, userID, date);
 		con.executeUpdateQuery(query);

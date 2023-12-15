@@ -15,6 +15,7 @@ public class TransactionDetailDatabase {
 		con = ConnectDB.getInstance();
 	}
 	
+	//Get all user transaction based on ID
 	public ArrayList<TransactionDetail> getUserTransactionDetail(int userId){
 		String query = String.format(""
 				+ "SELECT * FROM transactiondetail a\r\n"
@@ -40,6 +41,7 @@ public class TransactionDetailDatabase {
 		return detailList;
 	}
 	
+	//Add new user transaction
 	public boolean addNewTransactionDetail(int pcID, String custName, String date) {
 		String query = String.format("INSERT INTO transactiondetail(PC_ID, CustomerName, BookedTime) VALUES (%d, '%s', '%s')", pcID, custName, date);
 		con.executeUpdateQuery(query);

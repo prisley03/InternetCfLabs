@@ -26,7 +26,8 @@ public class ConnectDB {
 		}
 		return connect;
 	}
-		
+	
+	//Start connection
 	public void initializeConnection() {
 		try {
 			//Class.forName("com.mysql.cj.jdbc.Driver");

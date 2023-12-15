@@ -23,6 +23,7 @@ public class UserController {
 		return SingletonHelper.INSTANCE;
 	}
 	
+	//Navigation routes
 	public void navigateToRegister(Stage stage) {
 		new RegisterPage(stage);
 	}

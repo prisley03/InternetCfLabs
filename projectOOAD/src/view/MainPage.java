@@ -32,6 +32,7 @@ public class MainPage {
 		return obj.mainPageScene;
 	}
 	
+	//MAIN PAGE FOR TESTING
 	public void setStyle(MainPageObj obj) {
 		obj.homeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 25));
 		obj.messageContainer.setAlignment(Pos.CENTER);

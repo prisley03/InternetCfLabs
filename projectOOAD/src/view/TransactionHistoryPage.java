@@ -18,6 +18,8 @@ import model.object.TransactionDetail;
 import model.object.User;
 
 public class TransactionHistoryPage {
+	
+	//TableView will be used to view all transaction history data
 	public class TransactionHistoryPageObj {
 		private Scene transactionDetailHistoryScene;
 		private BorderPane transactionHistoryPane = new BorderPane();
@@ -49,7 +51,7 @@ public class TransactionHistoryPage {
 	}
 	
 	public void bindData(TransactionHistoryPageObj obj) {
-		User user = User.getActiveUser();
+		User user = User.getActiveUser(); //User is retrieved in order to pass UserID into the transaction database
 		ArrayList<TransactionDetail> detailList = TransactionController.getInstance().getUserTransactionDetail(user.getUserId());
         ObservableList<TransactionDetail> transactionList = FXCollections.observableArrayList(detailList);
 		obj.transactionDetailHistoryTableView.setItems(transactionList);

@@ -36,7 +36,7 @@ public class RegisterPage {
 		public Spinner<Integer> ageSpinner = new Spinner<>(0, 65, 13);
 		
 		public Button registButton = new Button("Register");
-		
+		//User will be redirected to the login page
 	    Hyperlink loginLink = new Hyperlink("Already have an account? Login here");
 	}
 	
@@ -60,7 +60,8 @@ public class RegisterPage {
 	
 	public void setActions(RegistComp obj, Stage stage) {
 		UserController userController = UserController.getInstance();
-
+		
+		//Make sure user data is valid before adding to database
 		obj.registButton.setOnMouseClicked(e -> {
 			if(userController.validateRegister(obj)) {
 				userController.addNewUser(obj.usernameField.getText(), obj.passwordField.getText(), obj.ageSpinner.getValue());			

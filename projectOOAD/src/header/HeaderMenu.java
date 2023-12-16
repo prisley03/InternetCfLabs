@@ -1,12 +1,14 @@
 package header;
 
 import controller.UserController;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import model.object.User;
 import view.BookPCPage;
+import view.MainPage;
 import view.MakeReportPage;
 import view.TransactionHistoryPage;
 import view.ViewAllPC;
@@ -23,6 +25,8 @@ public class HeaderMenu {
 
     // all role
     private MenuItem viewAllPCMenuItem = new MenuItem("View All PC");
+    private Label homeMenuLbl = new Label("Home");
+		private Menu homeMenu = new Menu("", homeMenuLbl);
 
     // customer
     private MenuItem viewTransactionHistoryMenuItem = new MenuItem(
@@ -90,10 +94,14 @@ public class HeaderMenu {
 
     obj.userMenu.getItems().addAll(obj.logOutMenuItem);
 
-    obj.bar.getMenus().addAll(obj.operationMenu, obj.userMenu);
+    obj.bar.getMenus().addAll(obj.homeMenu,obj.operationMenu, obj.userMenu);
   }
 
   public void setActions(HeaderMenuVar obj, Stage stage, String role) {
+    obj.homeMenuLbl.setOnMouseClicked(e -> {
+			new MainPage(stage);
+		});
+
     obj.logOutMenuItem.setOnAction(e -> {
       User.setActiveUser(null);
       UserController.getInstance().navigateToRegister(stage);

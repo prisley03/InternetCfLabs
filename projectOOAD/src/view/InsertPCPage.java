@@ -4,6 +4,7 @@ package view;
 import java.util.ArrayList;
 
 import controller.PCController;
+import header.HeaderMenu;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -49,6 +50,7 @@ public class InsertPCPage {
 		
 		obj.centerContainer.getChildren().addAll(obj.formPane, obj.insertPCBtn, obj.errorMessage, obj.backBtn);
 		
+		obj.InsertPCPane.setTop(new HeaderMenu().getMenuHeader(stage, role)); //different roles will have different menus
 		obj.InsertPCPane.setCenter(obj.centerContainer);
 		
 		obj.InsertPCScene = new Scene(obj.InsertPCPane, 800, 500);
@@ -77,7 +79,8 @@ public class InsertPCPage {
 		obj.backBtn.setLineSpacing(10);
 		obj.backBtn.setMinWidth(270);
 		
-		obj.errorMessage.setStyle("-fx-text-fill: RED;");
+
+		obj.errorMessage.setStyle("-fx-text-fill: RED;");			
 		obj.errorMessage.setAlignment(Pos.CENTER);
 	}
 	
@@ -92,6 +95,7 @@ public class InsertPCPage {
 				String pcCondition = obj.pcConditionCombo.getSelectionModel().getSelectedItem();
 				if(pcController.addNewPC(pcID, pcCondition)) {
 					obj.errorMessage.setText("PC inserted succesfully");
+					obj.errorMessage.setStyle("-fx-text-fill: GREEN;");
 				}
 			}
 		});

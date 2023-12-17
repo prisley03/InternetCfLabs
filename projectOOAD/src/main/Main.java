@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.object.User;
 import view.MainPage;
+import view.ViewAllStaff;
 
 public class Main extends Application {
 
@@ -24,6 +25,6 @@ public class Main extends Application {
 //		UserController.getInstance().navigateToRegister(arg0); 
 //		User.setActiveUser(UserController.getInstance().getUserData("AveAdmin", "ave123"));
 		User.setActiveUser(UserController.getInstance().getUserData("aveAdmin", "ave123"));
-		UserController.getInstance().navigateToMainPage(arg0, User.getActiveUser().getUserRole()); 
+		UserController.getInstance().navigateToMainPage(arg0, User.getActiveUser().getUserRole());
 	}
 }

@@ -62,6 +62,7 @@ public class PCDetailPage {
 		obj.PCDetailPane.setCenter(obj.centerContainer);
 		
 		
+		
 		obj.formPane.add(obj.pcIDlbl, 0, 0);
 		obj.formPane.add(obj.pcConditionlbl, 0, 1);
 		obj.formPane.add(obj.pcConditionCombo, 1, 1);

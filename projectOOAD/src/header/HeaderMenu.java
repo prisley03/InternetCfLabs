@@ -12,6 +12,7 @@ import view.MainPage;
 import view.MakeReportPage;
 import view.TransactionHistoryPage;
 import view.ViewAllPC;
+import view.ViewAllStaff;
 import view.ViewPCBookedData;
 import view.ViewTechnicianJobPage;
 
@@ -125,6 +126,10 @@ public class HeaderMenu {
 
     obj.makeReportMenuItem.setOnAction(e -> {
       new MakeReportPage(stage);
+    });
+    
+    obj.viewAllStaff.setOnAction(e -> {
+    	new ViewAllStaff(stage);
     });
   }
 

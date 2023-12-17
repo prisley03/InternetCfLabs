@@ -16,8 +16,8 @@ CREATE TABLE mspcbook (
     PC_ID INT NOT NULL,
     UserID INT NOT NULL,
     BookedDate DATETIME DEFAULT NOW(),
-    FOREIGN KEY (PC_ID) REFERENCES mspc(PC_ID),
-    FOREIGN KEY (UserID) REFERENCES msuser(UserID)
+    FOREIGN KEY (PC_ID) REFERENCES mspc(PC_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (UserID) REFERENCES msuser(UserID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE transactionheader(
@@ -25,8 +25,8 @@ CREATE TABLE transactionheader(
     StaffID INT NOT NULL,
     StaffName VARCHAR(255) NOT NULL,
     TransactionDate DATETIME DEFAULT NOW(),
-    FOREIGN KEY (StaffID) REFERENCES msuser(UserID),
-    FOREIGN KEY (StaffName) REFERENCES msuser(UserName)
+    FOREIGN KEY (StaffID) REFERENCES msuser(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (StaffName) REFERENCES msuser(UserName) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE transactiondetail (
@@ -35,9 +35,9 @@ CREATE TABLE transactiondetail (
     CustomerName VARCHAR(255) NOT NULL,
     BookedTime DATETIME DEFAULT NOW(),
     PRIMARY KEY (TransactionID, PC_ID),
-    FOREIGN KEY (TransactionID) REFERENCES transactionheader(TransactionID),
-    FOREIGN KEY (PC_ID) REFERENCES mspc(PC_ID),
-    FOREIGN KEY (CustomerName) REFERENCES msuser(UserName)
+    FOREIGN KEY (TransactionID) REFERENCES transactionheader(TransactionID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (PC_ID) REFERENCES mspc(PC_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (CustomerName) REFERENCES msuser(UserName) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE msjob (
@@ -46,8 +46,8 @@ CREATE TABLE msjob (
     PC_ID INT NOT NULL,
     JobStatus VARCHAR(255) NOT NULL,
     PRIMARY KEY (Job_ID, UserID, PC_ID),
-    FOREIGN KEY (UserID) REFERENCES msuser(UserID),
-    FOREIGN KEY (PC_ID) REFERENCES mspc(PC_ID)
+    FOREIGN KEY (UserID) REFERENCES msuser(UserID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (PC_ID) REFERENCES mspc(PC_ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE msreport (
@@ -57,7 +57,7 @@ CREATE TABLE msreport (
     ReportNote VARCHAR(255) NOT NULL,
     ReportDate DATETIME DEFAULT NOW(),
     PRIMARY KEY (Report_ID, UserRole, PC_ID),
-    FOREIGN KEY (PC_ID) REFERENCES mspc(PC_ID)
+    FOREIGN KEY (PC_ID) REFERENCES mspc(PC_ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO mspc(PC_Condition) VALUES
@@ -67,13 +67,17 @@ INSERT INTO mspc(PC_Condition) VALUES
 ("Usable"), ("Maintenance"), ("Broken"),
 ("Usable"), ("Maintenance"), ("Broken");
 
-INSERT INTO mspcbook(PC_ID, UserID, BookedDate) 
-VALUES(1, 1, NOW()), (2, 1, NOW()), (3, 1, NOW()), (4, 1, NOW()), (5, 1, NOW());
-
 INSERT INTO msuser VALUES
-(1, 'filbert', 'test345', 'Operator', 20),
-(2, 'aveAdmin', 'ave123', 'Admin', 20),
-(3, 'aveOp', 'ave123', 'Operator', 20);
+(1, 'averine08', 'ave123', 'Customer', 20),
+(2, 'user2', 'ave123', 'Customer', 22),
+(3, 'aveAdmin', 'ave123', 'Admin', 20),
+(4, 'aveOp', 'ave123', 'Operator', 20),
+(5, 'filbert', 'test345', 'Operator', 20),
+(6, 'user6', 'ave123', 'Computer Technician', 22),
+(7, 'daniel', 'ave123', 'Computer Technician', 21);
+
+INSERT INTO mspcbook(PC_ID, UserID, BookedDate) 
+VALUES(1, 2, NOW()), (2, 1, NOW()), (3, 1, NOW()), (4, 1, NOW()), (5, 1, NOW());
 
 INSERT INTO transactionheader (TransactionID, StaffID, StaffName, TransactionDate) VALUES 
 (1,2,'AveAdmin', NOW()),
@@ -83,7 +87,4 @@ INSERT INTO transactiondetail (TransactionID, PC_ID, CustomerName, BookedTime) V
 (1, 1, 'averine08', NOW());
 
 
-INSERTI INTO mspcbook (BookID, PC_ID, UserID, BookedDate)VALUES 
-(1, 2, 1, NOW() );
-
-INSERT INTO `msjob` VALUES (1,1,1,'Complete'),(2,2,2, 'UnComplete');
+	

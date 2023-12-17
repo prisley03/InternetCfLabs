@@ -108,12 +108,15 @@ public class ChangeUserRolePage {
 	public void setActions(Stage stage, ChangeRoleObj obj, User sUser) {
 		
 		 obj.updateBtn.setOnMouseClicked(e -> {
+			 // runLater function prevents UI thread violate Quantum Toolkit : RunWithourRenderException
 			Platform.runLater(() -> {
 			int userID = sUser.getUserId();
 			String role = obj.userRoleCombo.getSelectionModel().getSelectedItem();
 			if(userController.deleteUser(sUser.getUserId())&&
 			userController.addNewUser(sUser.getUsername(), sUser.getPassword(), role, sUser.getUserAge()) 
 			) {
+				// if the changed user's role is the active user, then it wil navigate the active user to login page
+				// It was done to ensure that user can access the menu bar based on the new role
 				if(userID == User.getActiveUser().getUserId()) {
 					User.setActiveUser(null);
 					UserController.getInstance().navigateToLogin(stage);

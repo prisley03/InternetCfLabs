@@ -10,6 +10,7 @@ public class JobController {
 	private static class SingletonHelper{
 		private static final JobController INSTANCE = new JobController();
 		private static final JobDatabase jobDB = new JobDatabase();
+		
 	}
 	
 	public static JobController getInstance() {
@@ -18,6 +19,10 @@ public class JobController {
 	
 	public ArrayList<Job> getAllJobData(){
 		return SingletonHelper.jobDB.getAllData();
+	}
+	
+	public ArrayList<Job> getAllJobDataByTechID(int techID){
+		return SingletonHelper.jobDB.getAllJobByTechID(techID);
 	}
 	
 	public ArrayList<Job> getJobUncompleteData(){
@@ -34,4 +39,17 @@ public class JobController {
 		}
 	}
 	
+	public boolean updateStatusJob(int pcId, String jobStatus) {
+		Job toUpdatedJob = SingletonHelper.jobDB.getJobByPCID(pcId);
+		toUpdatedJob.setJobStatus(jobStatus);
+		return SingletonHelper.jobDB.updateJobStatus(toUpdatedJob);
+	}
+	
+	public boolean addJob(int pcID, String jobStatus, int techID) {
+		return SingletonHelper.jobDB.insertJob(pcID, jobStatus, techID);
+	}
+	
+	public ArrayList<Integer> gettAllPossibleMaintenancePCID(){
+		return SingletonHelper.jobDB.gettAllPossibleMaintenancePCID();
+	}
 }

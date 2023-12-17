@@ -92,7 +92,7 @@ public class ChangeUserRolePage {
 		ArrayList<String> userRoleList = new ArrayList<>();
 		userRoleList.add("Customer");
 		userRoleList.add("Operator");
-		userRoleList.add("Computer Technician");
+		userRoleList.add("Technician");
 		userRoleList.add("Admin");
 		
 		obj.userRoleCombo.setItems(FXCollections.observableArrayList(userRoleList));
@@ -121,14 +121,14 @@ public class ChangeUserRolePage {
 					User.setActiveUser(null);
 					UserController.getInstance().navigateToLogin(stage);
 				}else {
-					new ViewAllStaff(stage);					
+					new ViewAllStaff(stage, "ChangeRole");					
 				}
 			}
 			});
 		});
 		
 		obj.backBtn.setOnMouseClicked(e ->{
-			new ViewAllStaff(stage);
+			new ViewAllStaff(stage, "ChangeRole");
 		});
 	}
 	

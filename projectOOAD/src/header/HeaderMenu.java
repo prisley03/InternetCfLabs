@@ -132,11 +132,16 @@ public class HeaderMenu {
     });
     
     obj.viewAllStaff.setOnAction(e -> {
-    	new ViewAllStaff(stage);
+    	new ViewAllStaff(stage, "ChangeRole");
+    });
+    
+    
+    obj.viewTechnicianJob.setOnAction(e -> {
+    	new ViewTechnicianJobPage(stage);
     });
     
     obj.viewAllTechnicianJob.setOnAction(e -> {
-    	new ViewTechnicianJobPage(stage);
+    	new ViewAllStaff(stage, "UpdateJob");
     });
   }
 

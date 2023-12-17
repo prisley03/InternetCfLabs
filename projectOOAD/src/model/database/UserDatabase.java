@@ -132,7 +132,7 @@ public class UserDatabase implements DAO<User> {
 	public ArrayList<User> selectAllTechnician(){
 		ArrayList<User> technicianlist = new ArrayList<User>();
 
-		String query = "SELECT * FROM msuser WHERE msuser.UserRole = 'Computer Technician'";
+		String query = "SELECT * FROM msuser WHERE msuser.UserRole = 'Technician'";
 		ResultSet rs = con.executeSelectQuery(query);
 		
 		try {

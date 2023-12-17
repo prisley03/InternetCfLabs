@@ -36,10 +36,10 @@ public class ViewAllStaff {
 		
 		
 		private Label titleLbl = new Label("View All Staff");
-		private Label instructionLbl = new Label("Double click to update Staff Role"); 
+		private Label instructionLbl = new Label(""); 
 	}
 	
-	public Scene initialize(ViewAllStaffObj obj, Stage stage, String role){
+	public Scene initialize(ViewAllStaffObj obj, Stage stage, String role, String purpose){
 		obj.StaffIDColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 		obj.StaffUserNameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
 		obj.StafPasswordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
@@ -55,15 +55,28 @@ public class ViewAllStaff {
 	    obj.allStaffpane.setCenter(obj.allStaffcontainer);
 	    obj.allStaffpane.setBottom( obj.allStaffTableView);
 		obj.allStaffScene = new Scene(obj.allStaffpane, 800, 500);
-
+		
+		// Change staff roles and update technician job that showing the same layout is merge with if else for eficciency
+		if(purpose.equals("ChangeRole")) {
+			obj.instructionLbl.setText("Double click to update Staff Role");
+		}else if(purpose.equals("UpdateJob")) {
+			obj.instructionLbl.setText("Double click to see Technician Job");
+		}
 		return obj.allStaffScene;
 	}
 	
-	public void bindData(ViewAllStaffObj obj) {
+	public void bindData(ViewAllStaffObj obj, String purpose) {
 		
 		//Get all data from the database via controller to display
-        ObservableList<User> staffList = FXCollections.observableArrayList(UserController.getInstance().getAllStaff());
-		obj.allStaffTableView.setItems(staffList);
+		
+		if(purpose.equals("ChangeRole")) {
+			ObservableList<User> staffList = FXCollections.observableArrayList(UserController.getInstance().getAllStaff());
+			obj.allStaffTableView.setItems(staffList);
+		}else if(purpose.equals("UpdateJob")) {
+			ObservableList<User> technicianList = FXCollections.observableArrayList(UserController.getInstance().getAllTechnician());
+			obj.allStaffTableView.setItems(technicianList);
+		}
+		
 	}
 	
 	public void setStyle(ViewAllStaffObj obj) {
@@ -73,12 +86,16 @@ public class ViewAllStaff {
 		obj.allStaffcontainer.setAlignment(Pos.CENTER);
 	}
 	
-	public void setAction(Stage stage, ViewAllStaffObj obj, String role) {
+	public void setAction(Stage stage, ViewAllStaffObj obj, String role, String purpose) {
 			// Double click with primary button with mouse and page will navigate to ChangeUserRole Page
 			obj.allStaffTableView.setOnMouseClicked((e) -> {
 				if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2){
 					User selectedUser = obj.allStaffTableView.getSelectionModel().getSelectedItem();
-					new ChangeUserRolePage(stage, selectedUser);
+					if(purpose.equals("ChangeRole")) {
+						new ChangeUserRolePage(stage, selectedUser);
+					}else if(purpose.equals("UpdateJob")) {
+						new ViewAllTechnicianJob(stage, selectedUser);
+					}
 				}
 			});
 			
@@ -86,14 +103,15 @@ public class ViewAllStaff {
     }
 	
 	// kalau yang diganti itu user yang lagi aktif, maka direct ke logout
-	public ViewAllStaff(Stage stage) {
+	public ViewAllStaff(Stage stage, String purpose) {
+		System.out.println(purpose);
 		User user = User.getActiveUser();
 		ViewAllStaffObj obj = new ViewAllStaffObj();
 	
-		initialize(obj, stage, user.getUserRole());
-		bindData(obj);
+		initialize(obj, stage, user.getUserRole(), purpose);
+		bindData(obj, purpose);
 		setStyle(obj);
-		setAction(stage, obj, user.getUserRole());
+		setAction(stage, obj, user.getUserRole(), purpose);
 		
 		stage.setScene(obj.allStaffScene);
 		stage.setTitle("View All Staff");

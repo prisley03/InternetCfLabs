@@ -11,4 +11,13 @@ public class StringUtility {
 		}
 		return true;
 	}	
+	
+	public static boolean isNumeric(String sentence) {
+		for(char c : sentence.toCharArray()) {
+			if(!Character.isDigit(c)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

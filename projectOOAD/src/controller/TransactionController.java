@@ -21,6 +21,10 @@ public class TransactionController {
 		return SingletonHelper.transactionDetailDB.getUserTransactionDetail(userId);
 	}
 	
+	public ArrayList<TransactionDetail> getAllTransactionDetail(){
+		return SingletonHelper.transactionDetailDB.getAllTransactionDetail();
+	}
+	
 	public void addNewTransactionHeader(int id, String name, String date) {
 		SingletonHelper.transactionHeaderDB.addNewTransactionHeader(id, name, date);
 	}
@@ -28,4 +32,6 @@ public class TransactionController {
 	public void addNewTransactionDetail(int pcID, String custName, String date) {
 		SingletonHelper.transactionDetailDB.addNewTransactionDetail(pcID, custName, date);
 	}
+	
+
 }

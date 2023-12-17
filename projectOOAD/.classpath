@@ -6,13 +6,13 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="V:/Semester 5/OO Analysis &amp; Design/LAB/MySQL Java Connection Library/mysql-connector-java-8.0.24.jar">
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Yoverina/Downloads/MySQL Java Connection Library/mysql-connector-java-8.0.24.jar">
+	<!-- <classpathentry kind="lib" path="V:/Semester 5/OO Analysis &amp; Design/LAB/MySQL Java Connection Library/mysql-connector-java-8.0.24.jar"> -->
+	<classpathentry exported="true" kind="lib" path="V:/Semester 5/OO Analysis &amp; Design/LAB/MySQL Java Connection Library/mysql-connector-java-8.0.24.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

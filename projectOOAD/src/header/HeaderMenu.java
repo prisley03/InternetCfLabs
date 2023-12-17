@@ -99,7 +99,7 @@ public class HeaderMenu {
 
   public void setActions(HeaderMenuVar obj, Stage stage, String role) {
     obj.homeMenuLbl.setOnMouseClicked(e -> {
-			new MainPage(stage);
+			new MainPage(stage, role);
 		});
 
     obj.logOutMenuItem.setOnAction(e -> {

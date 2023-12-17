@@ -40,7 +40,8 @@ public class PCDetailPage {
 		private Scene PCDetailScene;
 		private BorderPane PCDetailPane = new BorderPane();
 		private GridPane formPane = new GridPane();
-		private VBox centerContainer = new VBox(); 
+		private VBox centerContainer = new VBox();
+		private VBox BackBtnContainer = new VBox();
 		private HBox buttonContainer = new HBox();
 		private Label pcIDlbl = new Label("");
 		private Label pcConditionlbl = new Label("PC Condition : ");
@@ -48,14 +49,18 @@ public class PCDetailPage {
 		
 		private Button updateBtn = new Button("Update");
 		private Button deleteBtn = new Button("Delete");
+		private Button backBtn = new Button("< Back");
 		private Label errorMessage = new Label("");
 		
 	}
 	public Scene initialize(PCDetailobj obj, Stage stage, String role) {
-		obj.buttonContainer.getChildren().addAll(obj.deleteBtn, obj.updateBtn);
-		obj.centerContainer.getChildren().addAll(obj.formPane, obj.buttonContainer, obj.errorMessage);
+		obj.buttonContainer.getChildren().addAll(obj.updateBtn, obj.deleteBtn);
+		obj.BackBtnContainer.getChildren().add(obj.backBtn);
+		obj.centerContainer.getChildren().addAll(obj.formPane, obj.buttonContainer,obj.errorMessage,obj.BackBtnContainer);
+		
 		obj.PCDetailPane.setTop(new HeaderMenu().getMenuHeader(stage, role));
 		obj.PCDetailPane.setCenter(obj.centerContainer);
+		
 		
 		obj.formPane.add(obj.pcIDlbl, 0, 0);
 		obj.formPane.add(obj.pcConditionlbl, 0, 1);
@@ -74,23 +79,66 @@ public class PCDetailPage {
 		obj.buttonContainer.setPadding(new Insets(10));
 		obj.buttonContainer.setSpacing(10);
 		
+		obj.backBtn.setMinWidth(270);
+		
+		obj.BackBtnContainer.setPadding(new Insets(50));
+		obj.BackBtnContainer.setAlignment(Pos.TOP_CENTER);
+		
+		
 		obj.errorMessage.setStyle("-fx-text-fill: RED;");
 		obj.errorMessage.setAlignment(Pos.CENTER);
 	}
 	
 	public void bindData(PCDetailobj obj, PC spc) {
 		obj.pcIDlbl.setText(String.format("PC ID : %d", spc.getPcId()));
-		String pcConditionList[] = {"Usable", "Broken", "Maintenance" };
-		obj.pcConditionCombo.setItems(FXCollections.observableArrayList(pcConditionList));
+		
+		ArrayList<String> pcConditionAList = new ArrayList<>();
+		pcConditionAList.add("Usable");
+		pcConditionAList.add("Broken");
+		pcConditionAList.add("Maintenance");
+		obj.pcConditionCombo.setItems(FXCollections.observableArrayList(pcConditionAList));
+		
+		for(String condition : pcConditionAList) {
+			if(condition.equals(spc.getPcCondition())) {
+				obj.pcConditionCombo.getSelectionModel().select(condition);
+			}
+		}
 
 	}
+	
+	public void setActions(Stage stage, PCDetailobj obj, PC spc) {
+		obj.updateBtn.setOnMouseClicked(e ->{
+			int pcID = spc.getPcId();
+			String pcCondition = obj.pcConditionCombo.getSelectionModel().getSelectedItem();
+
+			if(pcController.updatePCCondition(pcID, pcCondition)) {
+				new ViewAllPC(stage);
+			}else {
+				obj.errorMessage.setText("Something wrong!");
+			}
+		});
+		
+		obj.deleteBtn.setOnMouseClicked(e -> {
+			if(!pcController.checkOnGoingBookByPCID(spc.getPcId())
+					&& pcController.deletePCByID(spc.getPcId())) {
+				new ViewAllPC(stage);
+			}else {
+				obj.errorMessage.setText("This pc is currently booked by a customer");
+			}
+		});
+		
+		obj.backBtn.setOnMouseClicked(e ->{
+			new ViewAllPC(stage);
+		});
+	}
+	
 	public PCDetailPage(Stage stage, PC selectedPC) {
 		User user = User.getActiveUser();
 		PCDetailobj obj = new PCDetailobj();
 		initialize(obj, stage, user.getUserRole());
 		bindData(obj, selectedPC);
 		setStyle(obj);
-		
+		setActions(stage, obj, selectedPC);
 		
 		stage.setScene(obj.PCDetailScene);
 		stage.setTitle("Detail PC" + selectedPC.getPcId());

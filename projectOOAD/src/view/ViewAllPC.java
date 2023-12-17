@@ -29,24 +29,32 @@ public class ViewAllPC {
 		private Scene allPCScene;
 		private BorderPane allPCpane = new BorderPane();
 		private ScrollPane outerContainer = new ScrollPane();
-		private TableView<PC> allPCTableView = new TableView<>();	
+		
 		private VBox allPCcontainer = new VBox();
+		
+		private TableView<PC> allPCTableView = new TableView<>();	
 		private TableColumn<PC, Integer> pcIDColumn = new TableColumn<>("PC_ID");
 		private TableColumn<PC, String> pcConditionColumn = new TableColumn<>("PC_Condition");
+		
 		private Label titleLbl = new Label("View All PC");
 		private Label instructionLbl = new Label("Double click to access Detail Page"); 
-//		private TableColumn<Button, String> actionColumn = new TableColumn<>("Action");
-//		private Button viewDetailBtn = new Button("View Detail");
+		
+		private Button insertBtn = new Button("Insert PC");
 		
 	}
 	
 	public Scene initialize(ViewAllPCObj obj, Stage stage, String role){
 		obj.pcIDColumn.setCellValueFactory(new PropertyValueFactory<>("pcId"));
 		obj.pcConditionColumn.setCellValueFactory(new PropertyValueFactory<>("pcCondition"));
-//		obj.actionColumn.setCellValueFactory(new PropertyValueFactory<>("pcAction") );
+		
+		if(role.equals("Admin")) {
+			obj.allPCcontainer.getChildren().addAll(obj.titleLbl, obj.instructionLbl, obj.insertBtn);						
+		}else {
+			obj.allPCcontainer.getChildren().addAll(obj.titleLbl);
+		}
+		
 	    obj.allPCTableView.getColumns().addAll(obj.pcIDColumn, obj.pcConditionColumn);
 		
-	    obj.allPCcontainer.getChildren().addAll(obj.titleLbl, obj.instructionLbl);
 	    
 	    obj.outerContainer.setContent(obj.allPCTableView);
 	    obj.allPCpane.setTop(new HeaderMenu().getMenuHeader(stage, role)); //different roles will have different menus
@@ -72,15 +80,19 @@ public class ViewAllPC {
 		obj.allPCcontainer.setAlignment(Pos.CENTER);
 	}
 	
-	public void setAction(Stage stage, ViewAllPCObj obj) {
-		obj.allPCTableView.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
-            	PC selectedPC = obj.allPCTableView.getSelectionModel().getSelectedItem();
-            	new PCDetailPage(stage, selectedPC);
-//                System.out.println(obj.allPCTableView.getSelectionModel().getSelectedItem().getPcId());
-//                System.out.println(obj.allPCTableView.getSelectionModel().getSelectedItem().getPcCondition());
-            }
-        });
+	public void setAction(Stage stage, ViewAllPCObj obj, String role) {
+		if(role.equals("Admin")) {
+			obj.allPCTableView.setOnMouseClicked((e) -> {
+				if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2){
+					PC selectedPC = obj.allPCTableView.getSelectionModel().getSelectedItem();
+					new PCDetailPage(stage, selectedPC);
+				}
+			});	
+			
+			obj.insertBtn.setOnMouseClicked(e ->{
+				new InsertPCPage(stage);
+			});
+		}
     }
 
 
@@ -91,7 +103,7 @@ public class ViewAllPC {
 		initialize(obj, stage, user.getUserRole());
 		bindData(obj);
 		setStyle(obj);
-		setAction(stage, obj);
+		setAction(stage, obj, user.getUserRole());
 		
 		stage.setScene(obj.allPCScene);
 		stage.setTitle("View All PC");

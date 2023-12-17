@@ -121,7 +121,7 @@ public class UserController {
 	
 	public ArrayList<User> getAllTechnician() {
 		ArrayList<User> technicianList = new ArrayList<>();
-
+		technicianList = SingletonHelper.userDB.selectAllTechnician() ;
 		return technicianList;
 	}
 	
@@ -138,6 +138,5 @@ public class UserController {
 		ArrayList<User> staffList = new ArrayList<User>();
 		staffList = SingletonHelper.userDB.selectAllStaff() ;
 		return staffList;
-
 	}
 }

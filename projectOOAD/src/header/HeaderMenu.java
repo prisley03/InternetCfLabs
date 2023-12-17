@@ -45,6 +45,7 @@ public class HeaderMenu {
 
     // admin
     private MenuItem viewAllStaff = new MenuItem("View All Staff");
+    private MenuItem viewAllTechnicianJob = new MenuItem("View All Technician Job");
     private MenuItem viewAllReport = new MenuItem("View All Report");
     private MenuItem viewAllTransactionHistory = new MenuItem(
       "View All Transaction History"
@@ -87,7 +88,7 @@ public class HeaderMenu {
             obj.viewAllPCMenuItem,
             obj.viewAllReport,
             obj.viewAllStaff,
-            obj.viewTechnicianJob,
+            obj.viewAllTechnicianJob,
             obj.viewAllTransactionHistory
           );
         break;
@@ -130,6 +131,10 @@ public class HeaderMenu {
     
     obj.viewAllStaff.setOnAction(e -> {
     	new ViewAllStaff(stage);
+    });
+    
+    obj.viewAllTechnicianJob.setOnAction(e -> {
+    	new ViewTechnicianJobPage(stage);
     });
   }
 

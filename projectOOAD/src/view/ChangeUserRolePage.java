@@ -108,7 +108,7 @@ public class ChangeUserRolePage {
 	public void setActions(Stage stage, ChangeRoleObj obj, User sUser) {
 		
 		 obj.updateBtn.setOnMouseClicked(e -> {
-			 // runLater function prevents UI thread violate Quantum Toolkit : RunWithourRenderException
+			 // runLater function prevents UI thread from violating Quantum Toolkit : RunWithourRenderException
 			Platform.runLater(() -> {
 			int userID = sUser.getUserId();
 			String role = obj.userRoleCombo.getSelectionModel().getSelectedItem();

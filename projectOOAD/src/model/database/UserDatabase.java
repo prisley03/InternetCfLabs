@@ -128,6 +128,31 @@ public class UserDatabase implements DAO<User> {
 		return staffList;
 	
 	}
+	
+	public ArrayList<User> selectAllTechnician(){
+		ArrayList<User> technicianlist = new ArrayList<User>();
+
+		String query = "SELECT * FROM msuser WHERE msuser.UserRole = 'Computer Technician'";
+		ResultSet rs = con.executeSelectQuery(query);
+		
+		try {
+			while(rs.next()) {
+				int userID = rs.getInt("UserID");
+				String userName = rs.getString("UserName");
+				String userPassword = rs.getString("UserPassword");
+				String userRole = rs.getString("UserRole");
+				int userAge = rs.getInt("UserAge");
+				
+				technicianlist.add(new User(userID, userName, userPassword, userRole, userAge));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return technicianlist;
+	
+	}
+	
 	public void delete(int userID) {
 		String query = String.format("DELETE FROM msuser WHERE UserID = %d",userID);
 		con.executeUpdateQuery(query);

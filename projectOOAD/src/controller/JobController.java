@@ -10,7 +10,7 @@ public class JobController {
 	private static class SingletonHelper{
 		private static final JobController INSTANCE = new JobController();
 		private static final JobDatabase jobDB = new JobDatabase();
-		
+		private static final PCController pcController = new PCController();
 	}
 	
 	public static JobController getInstance() {
@@ -40,9 +40,22 @@ public class JobController {
 	}
 	
 	public boolean updateStatusJob(int pcId, String jobStatus) {
-		Job toUpdatedJob = SingletonHelper.jobDB.getJobByPCID(pcId);
-		toUpdatedJob.setJobStatus(jobStatus);
-		return SingletonHelper.jobDB.updateJobStatus(toUpdatedJob);
+		//Retrieve job that related to pcID 
+		Job toBeUpdatedJob = SingletonHelper.jobDB.getJobByPCID(pcId);
+		
+		//Save job status in temporary variable
+		toBeUpdatedJob.setJobStatus(jobStatus);
+		
+		///Update PC condition based on jobStatus
+		PC updatedPC =  SingletonHelper.pcController.getPCDetail(pcId);
+		if(jobStatus.equals("Complete")) {
+			SingletonHelper.pcController.updatePCCondition(pcId, "Usable");
+		}else if(jobStatus.equals("UnComplete")) {
+			SingletonHelper.pcController.updatePCCondition(pcId, "Maintenance");
+		}
+		
+		//Pass the temporary variable to Database to update
+		return SingletonHelper.jobDB.updateJobStatus(toBeUpdatedJob);
 	}
 	
 	public boolean addJob(int pcID, String jobStatus, int techID) {

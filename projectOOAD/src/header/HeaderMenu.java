@@ -12,7 +12,9 @@ import view.MainPage;
 import view.MakeReportPage;
 import view.TransactionHistoryPage;
 import view.ViewAllPC;
+import view.ViewAllReport;
 import view.ViewAllStaff;
+import view.ViewAllTransactionHistoryPage;
 import view.ViewPCBookedData;
 import view.ViewTechnicianJobPage;
 
@@ -135,13 +137,20 @@ public class HeaderMenu {
     	new ViewAllStaff(stage, "ChangeRole");
     });
     
-    
     obj.viewTechnicianJob.setOnAction(e -> {
     	new ViewTechnicianJobPage(stage);
     });
     
     obj.viewAllTechnicianJob.setOnAction(e -> {
     	new ViewAllStaff(stage, "UpdateJob");
+    });
+    
+    obj.viewAllTransactionHistory.setOnAction(e -> {
+    	new ViewAllTransactionHistoryPage(stage);
+    });
+    
+    obj.viewAllReport.setOnAction(e ->{
+    	new ViewAllReport(stage);
     });
   }
 

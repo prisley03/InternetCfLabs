@@ -72,4 +72,27 @@ public class TransactionDetailDatabase {
 		con.executeUpdateQuery(query);
 		return true;
 	}
+	
+	
+	public ArrayList<TransactionDetail> getTransactionDetailByTransactionID(int transactionID){
+		ArrayList<TransactionDetail> tdList = new ArrayList<TransactionDetail>();
+		
+		String query = (String.format("SELECT * FROM transactiondetail WHERE TransactionID = %d", transactionID ));
+		ResultSet rs = con.executeSelectQuery(query);
+		
+		try {
+			while(rs.next()) {
+				int transactionId = rs.getInt("TransactionID");
+				int pcID = rs.getInt("PC_ID");
+				String customerName = rs.getString("CustomerName");
+				LocalDateTime bookedTime = rs.getTimestamp("BookedTime").toLocalDateTime();
+				
+				tdList.add(new TransactionDetail(transactionId, pcID, customerName, bookedTime));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tdList;
+	}
 }

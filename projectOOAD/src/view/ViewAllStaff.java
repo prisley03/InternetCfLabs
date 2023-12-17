@@ -104,7 +104,6 @@ public class ViewAllStaff {
 	
 	// kalau yang diganti itu user yang lagi aktif, maka direct ke logout
 	public ViewAllStaff(Stage stage, String purpose) {
-		System.out.println(purpose);
 		User user = User.getActiveUser();
 		ViewAllStaffObj obj = new ViewAllStaffObj();
 	

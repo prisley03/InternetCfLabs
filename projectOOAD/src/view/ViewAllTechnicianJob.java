@@ -45,7 +45,7 @@ public class ViewAllTechnicianJob {
 	    ComboBox<String> pcIDInput = new ComboBox<String>();
 	    private ComboBox<String> jobStatusCombo= new ComboBox<String>();
 	    
-	    Button submitButton = new Button("Submit");
+	    Button submitButton = new Button("Update");
 	    private Button insertBtn = new Button("Add Job");
 	    Label message = new Label("");
 		Label titleLabel = new Label();

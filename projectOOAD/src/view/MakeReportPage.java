@@ -50,7 +50,6 @@ public class MakeReportPage {
     public Label message = new Label("");
   }
 
-  @SuppressWarnings("unchecked")
   public Scene initialize(MakeReportObj obj, Stage stage, String role) {
     obj.pcIDColumn.setCellValueFactory(new PropertyValueFactory<>("pcId"));
     obj.pcConditionColumn.setCellValueFactory(

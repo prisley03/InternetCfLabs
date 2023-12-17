@@ -70,10 +70,12 @@ public class HeaderMenu {
             obj.makeReportMenuItem
           );
         break;
-      case "Computer Technician":
+      case "Technician":
         obj.operationMenu
           .getItems()
-          .addAll(obj.viewAllPCMenuItem, obj.viewTechnicianJob);
+          .addAll(
+        		  obj.viewAllPCMenuItem, 
+        		  obj.viewTechnicianJob);
         break;
       case "Admin":
         obj.operationMenu
@@ -117,6 +119,10 @@ public class HeaderMenu {
 
     obj.makeReportMenuItem.setOnAction(e -> {
       new MakeReportPage(stage);
+    });
+    
+    obj.viewTechnicianJob.setOnAction(e -> {
+    	new ViewTechnicianJobPage(stage);
     });
   }
 

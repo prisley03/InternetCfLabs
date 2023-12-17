@@ -6,12 +6,12 @@ public class Job {
 	private int pcId;
 	private String jobStatus;
 	public Job(int jobId, int userId, int pcId, String jobStatus) {
-		super();
 		this.jobId = jobId;
 		this.userId = userId;
 		this.pcId = pcId;
 		this.jobStatus = jobStatus;
 	}
+	
 	public int getJobId() {
 		return jobId;
 	}

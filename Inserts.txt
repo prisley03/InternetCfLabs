@@ -71,4 +71,10 @@ INSERT INTO mspcbook(PC_ID, UserID, BookedDate)
 VALUES(1, 1, NOW()), (2, 1, NOW()), (3, 1, NOW()), (4, 1, NOW()), (5, 1, NOW());
 
 INSERT INTO msuser VALUES
-(2, 'filbert', 'test345', 'Operator', 20);
+(2, 'filbert', 'test345', 'Operator', 20),
+(2, 'customertest', 'test345', 'Customer', 20),
+(3, 'customertest2', 'test345', 'Customer', 20)
+(4, 'techniciantest', 'test345', 'Technician', 20));
+
+
+INSERT INTO `msjob` VALUES ((1,1,1,'Complete'),(2,2,2)

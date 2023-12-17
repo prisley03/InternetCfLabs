@@ -82,6 +82,6 @@ INSERT INTO transactionheader (TransactionID, StaffID, StaffName, TransactionDat
 INSERT INTO transactiondetail (TransactionID, PC_ID, CustomerName, BookedTime) VALUES 
 (1, 1, 'averine08', NOW());
 
-
-INSERTI INTO mspcbook (BookID, PC_ID, UserID, BookedDate)VALUES 
+-- UserID sesuaiin yang rolenya customer
+INSERT INTO mspcbook (BookID, PC_ID, UserID, BookedDate)VALUES 
 (1, 2, 1, NOW() );

@@ -45,7 +45,7 @@ public class RegisterPage {
 				comp.cfPasswordField, comp.ageLabel, comp.ageSpinner, comp.registButton, comp.loginLink, comp.errorMessage);
 		comp.sceneBox.getChildren().addAll(comp.registerContainer);
 
-//		comp.mainPane.setCenter(comp.sceneBox);
+		comp.mainPane.setCenter(comp.sceneBox);
 		comp.registerScene = new Scene(comp.mainPane, 500, 600);
 		return comp.registerScene;
 	}

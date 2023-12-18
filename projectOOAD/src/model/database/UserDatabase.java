@@ -2,11 +2,8 @@ package model.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
 
 import connection.ConnectDB;
-import model.object.PCBook;
 import model.object.User;
 
 public class UserDatabase implements DAO<User> {
@@ -103,58 +100,5 @@ public class UserDatabase implements DAO<User> {
 		}
 		
 		return null;
-	}
-	
-	public ArrayList<User> selectAllStaff(){
-		ArrayList<User> staffList = new ArrayList<User>();
-
-		String query = "SELECT * FROM msuser WHERE NOT msuser.UserRole = 'Customer'";
-		ResultSet rs = con.executeSelectQuery(query);
-		
-		try {
-			while(rs.next()) {
-				int userID = rs.getInt("UserID");
-				String userName = rs.getString("UserName");
-				String userPassword = rs.getString("UserPassword");
-				String userRole = rs.getString("UserRole");
-				int userAge = rs.getInt("UserAge");
-				
-				staffList.add(new User(userID, userName, userPassword, userRole, userAge));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return staffList;
-	
-	}
-	
-	public ArrayList<User> selectAllTechnician(){
-		ArrayList<User> technicianlist = new ArrayList<User>();
-
-		String query = "SELECT * FROM msuser WHERE msuser.UserRole = 'Technician'";
-		ResultSet rs = con.executeSelectQuery(query);
-		
-		try {
-			while(rs.next()) {
-				int userID = rs.getInt("UserID");
-				String userName = rs.getString("UserName");
-				String userPassword = rs.getString("UserPassword");
-				String userRole = rs.getString("UserRole");
-				int userAge = rs.getInt("UserAge");
-				
-				technicianlist.add(new User(userID, userName, userPassword, userRole, userAge));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return technicianlist;
-	
-	}
-	
-	public void delete(int userID) {
-		String query = String.format("DELETE FROM msuser WHERE UserID = %d",userID);
-		con.executeUpdateQuery(query);
 	}
 }

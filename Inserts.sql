@@ -73,8 +73,8 @@ INSERT INTO msuser VALUES
 (3, 'aveAdmin', 'ave123', 'Admin', 20),
 (4, 'aveOp', 'ave123', 'Operator', 20),
 (5, 'filbert', 'test345', 'Operator', 20),
-(6, 'user6', 'ave123', 'Computer Technician', 22),
-(7, 'daniel', 'ave123', 'Computer Technician', 21);
+(6, 'user6', 'ave123', 'Technician', 22),
+(7, 'daniel', 'ave123', 'Technician', 21);
 
 INSERT INTO mspcbook(PC_ID, UserID, BookedDate) 
 VALUES(1, 2, NOW()), (2, 1, NOW()), (3, 1, NOW()), (4, 1, NOW()), (5, 1, NOW());
@@ -86,5 +86,4 @@ INSERT INTO transactionheader (TransactionID, StaffID, StaffName, TransactionDat
 INSERT INTO transactiondetail (TransactionID, PC_ID, CustomerName, BookedTime) VALUES 
 (1, 1, 'averine08', NOW());
 
-
-	
+INSERT INTO `msjob`(`Job_ID`, `UserID`, `PC_ID`, `JobStatus`) VALUES (1,6,3,'UnComplete'), (2,7,9,'UnComplete'), (3,6,11,'Uncomplete');

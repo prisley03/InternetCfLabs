@@ -77,10 +77,10 @@ public class ViewTechnicianJobPage {
 	}
 
 //	Mengebind data
-	public void bindData(TechnicianJobComp comp) {
+	public void bindData(TechnicianJobComp comp, User tech) {
 		comp.pcIDInput.getItems().clear();
-		ObservableList<Job> jobList = FXCollections.observableArrayList(JobController.getInstance().getJobforTechinician());
-		ObservableList<Job> uncompleteJobList = FXCollections.observableArrayList(JobController.getInstance().getJobUncompleteData());
+		ObservableList<Job> jobList = FXCollections.observableArrayList(JobController.getInstance().getAllJobDataByTechID(tech.getUserId()));
+		ObservableList<Job> uncompleteJobList = FXCollections.observableArrayList(JobController.getInstance().getJobUncompleteData(tech.getUserId()));
 		comp.allJobTableView.setItems(jobList);
 		comp.pcIDInput.getItems().add("Select PC");
 		
@@ -93,7 +93,7 @@ public class ViewTechnicianJobPage {
 	}
 
 //	Action untuk submit button mengubah value pada status 'uncomplete' menjadi 'complete'
-	public void setAction(TechnicianJobComp comp) {
+	public void setAction(TechnicianJobComp comp, User tech) {
 		
 		comp.submitButton.setOnAction(e->{
 			String selectedUncompletePC = comp.pcIDInput.getValue();
@@ -102,7 +102,7 @@ public class ViewTechnicianJobPage {
 				String[] pcId = selectedUncompletePC.split(" ");
 				int pcID = Integer.parseInt(pcId[1]);
 				jobController.markComplete(pcID, userID);
-				bindData(comp);
+				bindData(comp, tech);
 				comp.message.setText("Succesfully update status :" + selectedUncompletePC);
 				}
 			else {
@@ -130,8 +130,8 @@ public class ViewTechnicianJobPage {
 		User user = User.getActiveUser();
 		TechnicianJobComp comp = new TechnicianJobComp();
 		initialize(comp, stage, user.getUserRole());
-		bindData(comp);
-		setAction(comp);
+		bindData(comp, user);
+		setAction(comp, user);
 		setStyle(comp);
 		stage.setScene(comp.allTechnicianJobScene);
 		stage.setTitle("View All Job");

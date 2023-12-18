@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.database.JobDatabase;
 import model.object.Job;
+import model.object.PC;
 import model.object.User;
 
 public class JobController {
@@ -22,20 +23,19 @@ public class JobController {
 	}
 
 //	mendapatkan semua job data dari singleton khusus untuk technician yang login dengan userid tertentu
-	public ArrayList<Job> getJobforTechinician(){
-		int userId = User.getActiveUser().getUserId();
-		return SingletonHelper.jobDB.getDataforTechnician(userId);
+	public ArrayList<Job> getAllJobDataByTechID(int techID){
+		return SingletonHelper.jobDB.getAllJobByTechID(techID);
 	}
 	
 // mendapatkan data sesuai dengan technician yang login dengan userid tertentu namun hanya menunjukkan yang job status "uncomplete"
-	public ArrayList<Job> getJobUncompleteData(){
-		int userId = User.getActiveUser().getUserId();
-		return SingletonHelper.jobDB.getJobUncompleteData(userId);
+	public ArrayList<Job> getJobUncompleteData(int techId){
+		return SingletonHelper.jobDB.getJobUncompleteData(techId);
+
 	}
 
 // mengubah pc id yang ditekan agar jobstatus diubah dari "Uncomplete" menjadi "Complete"
-	public void markComplete(int pcId, int userId) {
-		ArrayList<Job>jobUncompleteData = SingletonHelper.jobDB.getJobUncompleteData(userId);
+	public void markComplete(int pcId, int techId) {
+		ArrayList<Job>jobUncompleteData = SingletonHelper.jobDB.getJobUncompleteData(techId);
 		
 		for(Job job: jobUncompleteData) {
 			if(job.getPcId() == pcId) {
@@ -43,5 +43,33 @@ public class JobController {
 			}
 		}
 	}
+  
+	public boolean updateStatusJob(int pcId, String jobStatus) {
+		//Retrieve job that related to pcID 
+		Job toBeUpdatedJob = SingletonHelper.jobDB.getJobByPCID(pcId);
+		
+		//Save job status in temporary variable
+		toBeUpdatedJob.setJobStatus(jobStatus);
+		
+		///Update PC condition based on jobStatus
+		PC updatedPC =  SingletonHelper.pcController.getPCDetail(pcId);
+		if(jobStatus.equals("Complete")) {
+			SingletonHelper.pcController.updatePCCondition(pcId, "Usable");
+		}else if(jobStatus.equals("UnComplete")) {
+			SingletonHelper.pcController.updatePCCondition(pcId, "Maintenance");
+		}
+		
+		//Pass the temporary variable to Database to update
+		return SingletonHelper.jobDB.updateJobStatus(toBeUpdatedJob);
+	}
 	
+//	Insert job to choosen techID
+	public boolean addJob(int pcID, String jobStatus, int techID) {
+		return SingletonHelper.jobDB.insertJob(pcID, jobStatus, techID);
+	}
+	
+//	Get all possible maintenance
+	public ArrayList<Integer> gettAllPossibleMaintenancePCID(){
+		return SingletonHelper.jobDB.gettAllPossibleMaintenancePCID();
+	}
 }

@@ -18,7 +18,6 @@ public class MainPage {
 		
 		private User activeUser = User.getActiveUser();
 		private Label homeLabel = new Label(String.format("Welcome, %s", activeUser.getUsername()));
-		private Label userRole = new Label(String.format("Role : %s", activeUser.getUserRole()));
 		private Label messageLabel = new Label("Please choose the menu options you'd like to access from the menu bar.");
 		private Scene mainPageScene;
 		private VBox messageContainer = new VBox(10);
@@ -26,7 +25,7 @@ public class MainPage {
 	
 	public Scene initialize(MainPageObj obj, Stage stage, String role) {
 		obj.homePane.setTop(new HeaderMenu().getMenuHeader(stage, role));
-		obj.messageContainer.getChildren().addAll(obj.homeLabel, obj.userRole, obj.messageLabel);
+		obj.messageContainer.getChildren().addAll(obj.homeLabel, obj.messageLabel);
 		obj.homePane.setCenter(obj.messageContainer);
 		obj.mainPageScene = new Scene(obj.homePane, 800, 500);
 		
@@ -36,7 +35,6 @@ public class MainPage {
 	//MAIN PAGE FOR TESTING
 	public void setStyle(MainPageObj obj) {
 		obj.homeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-		obj.userRole.setFont(Font.font("Arial", FontWeight.MEDIUM, 20));
 		obj.messageContainer.setAlignment(Pos.CENTER);
 		obj.homePane.setCenter(obj.messageContainer);
 	}
@@ -47,6 +45,5 @@ public class MainPage {
 		setStyle(obj);
 	
 		stage.setScene(obj.mainPageScene);
-		stage.show(); // jangan lupa delete, cuma untuk direct acces ke mainpage pas run
 	}
 }

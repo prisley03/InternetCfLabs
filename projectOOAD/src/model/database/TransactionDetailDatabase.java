@@ -1,10 +1,8 @@
 package model.database;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 import connection.ConnectDB;
 import model.object.PC;
@@ -15,29 +13,6 @@ public class TransactionDetailDatabase {
 		
 	public TransactionDetailDatabase() {
 		con = ConnectDB.getInstance();
-	}
-
-	// Retrieve all transaction detail that exist
-	public ArrayList<TransactionDetail> getAllTransactionDetail(){
-		ArrayList<TransactionDetail> tdList = new ArrayList<TransactionDetail>();
-		
-		String query = ("SELECT * FROM transactiondetail");
-		ResultSet rs = con.executeSelectQuery(query);
-		
-		try {
-			while(rs.next()) {
-				int transactionId = rs.getInt("TransactionID");
-				int pcID = rs.getInt("PC_ID");
-				String customerName = rs.getString("CustomerName");
-				LocalDateTime bookedTime = rs.getTimestamp("BookedTime").toLocalDateTime();
-				
-				tdList.add(new TransactionDetail(transactionId, pcID, customerName, bookedTime));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return tdList;
 	}
 	
 	//Get all user transaction based on ID
@@ -71,28 +46,5 @@ public class TransactionDetailDatabase {
 		String query = String.format("INSERT INTO transactiondetail(PC_ID, CustomerName, BookedTime) VALUES (%d, '%s', '%s')", pcID, custName, date);
 		con.executeUpdateQuery(query);
 		return true;
-	}
-	
-	
-	public ArrayList<TransactionDetail> getTransactionDetailByTransactionID(int transactionID){
-		ArrayList<TransactionDetail> tdList = new ArrayList<TransactionDetail>();
-		
-		String query = (String.format("SELECT * FROM transactiondetail WHERE TransactionID = %d", transactionID ));
-		ResultSet rs = con.executeSelectQuery(query);
-		
-		try {
-			while(rs.next()) {
-				int transactionId = rs.getInt("TransactionID");
-				int pcID = rs.getInt("PC_ID");
-				String customerName = rs.getString("CustomerName");
-				LocalDateTime bookedTime = rs.getTimestamp("BookedTime").toLocalDateTime();
-				
-				tdList.add(new TransactionDetail(transactionId, pcID, customerName, bookedTime));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return tdList;
 	}
 }

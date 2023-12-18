@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.database.JobDatabase;
 import model.object.Job;
+import model.object.PC;
 import model.object.User;
 
 public class JobController {
@@ -67,10 +68,12 @@ public class JobController {
 		return SingletonHelper.jobDB.updateJobStatus(toBeUpdatedJob);
 	}
 	
+//	Insert job to choosen techID
 	public boolean addJob(int pcID, String jobStatus, int techID) {
 		return SingletonHelper.jobDB.insertJob(pcID, jobStatus, techID);
 	}
 	
+//	Get all possible maintenance
 	public ArrayList<Integer> gettAllPossibleMaintenancePCID(){
 		return SingletonHelper.jobDB.gettAllPossibleMaintenancePCID();
 	}

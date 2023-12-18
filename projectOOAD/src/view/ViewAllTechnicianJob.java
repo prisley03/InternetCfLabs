@@ -8,6 +8,7 @@ import header.HeaderMenu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,6 +19,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.database.JobDatabase;
 import model.object.Job;
@@ -56,6 +59,7 @@ public class ViewAllTechnicianJob {
 	public Scene initialize(ViewAllTechnicianJobObj comp, Stage stage, String role){
 		comp.jobBox.getChildren().addAll(
 		        comp.tableLabel,
+		        comp.tableBox,
 		        comp.pcBox, comp.jobStatusCombo,
 		        comp.submitButton,
 		        comp.insertBtn,
@@ -79,7 +83,7 @@ public class ViewAllTechnicianJob {
 	    comp.containerBox.setSpacing(20);
 	    comp.containerBox.setPadding(vboxPadding);
 
-	    comp.bpTechnician.setCenter(comp.scrollpane);
+	    comp.bpTechnician.setCenter(comp.containerBox);
 	    comp.allTechnicianJobScene = new Scene(comp.bpTechnician, 800, 600);
 	    return comp.allTechnicianJobScene;
 	}
@@ -133,8 +137,21 @@ public class ViewAllTechnicianJob {
 		});
 	}
 	
-	public void setStyle(ViewAllTechnicianJobObj obj) {
-		obj.allJobTableView.setMaxHeight(200);
+//	public void setStyle(ViewAllTechnicianJobObj obj) {
+//		obj.allJobTableView.setMaxHeight(200);
+//		
+//	}
+	public void setStyle(ViewAllTechnicianJobObj comp) {
+//	    comp.bpTechnician.setCenter(comp.jobBox);
+	    comp.jobBox.setAlignment(Pos.CENTER);
+		comp.tableBox.setAlignment(Pos.CENTER);
+		comp.containerBox.setAlignment(Pos.CENTER);
+		comp.pcBox.setAlignment(Pos.CENTER);
+//		
+//		Menstyling tulisan pada title
+		comp.tableLabel.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+		
+		comp.allJobTableView.setMaxWidth(250);
 	}
 	
 //Menampilkan stage

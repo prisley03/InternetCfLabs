@@ -1,3 +1,4 @@
+CREATE DATABASE internetcf;
 CREATE TABLE msuser(
     UserID INT PRIMARY KEY AUTO_INCREMENT,
     UserName VARCHAR(255) UNIQUE NOT NULL,
@@ -80,7 +81,7 @@ INSERT INTO mspcbook(PC_ID, UserID, BookedDate)
 VALUES(1, 2, NOW()), (2, 1, NOW()), (3, 1, NOW()), (4, 1, NOW()), (5, 1, NOW());
 
 INSERT INTO transactionheader (TransactionID, StaffID, StaffName, TransactionDate) VALUES 
-(1,2,'AveAdmin', NOW()),
+(1,2,'filbert', NOW()),
 (2,3, 'AveOp', NOW());
 
 INSERT INTO transactiondetail (TransactionID, PC_ID, CustomerName, BookedTime) VALUES 

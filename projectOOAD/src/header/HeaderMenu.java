@@ -1,15 +1,20 @@
 package header;
 
 import controller.UserController;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import model.object.User;
 import view.BookPCPage;
+import view.MainPage;
 import view.MakeReportPage;
 import view.TransactionHistoryPage;
 import view.ViewAllPC;
+import view.ViewAllReport;
+import view.ViewAllStaff;
+import view.ViewAllTransactionHistoryPage;
 import view.ViewPCBookedData;
 import view.ViewTechnicianJobPage;
 
@@ -23,6 +28,8 @@ public class HeaderMenu {
 
     // all role
     private MenuItem viewAllPCMenuItem = new MenuItem("View All PC");
+    private Label homeMenuLbl = new Label("Home");
+		private Menu homeMenu = new Menu("", homeMenuLbl);
 
     // customer
     private MenuItem viewTransactionHistoryMenuItem = new MenuItem(
@@ -40,6 +47,7 @@ public class HeaderMenu {
 
     // admin
     private MenuItem viewAllStaff = new MenuItem("View All Staff");
+    private MenuItem viewAllTechnicianJob = new MenuItem("View All Technician Job");
     private MenuItem viewAllReport = new MenuItem("View All Report");
     private MenuItem viewAllTransactionHistory = new MenuItem(
       "View All Transaction History"
@@ -84,7 +92,7 @@ public class HeaderMenu {
             obj.viewAllPCMenuItem,
             obj.viewAllReport,
             obj.viewAllStaff,
-            obj.viewTechnicianJob,
+            obj.viewAllTechnicianJob,
             obj.viewAllTransactionHistory
           );
         break;
@@ -92,10 +100,14 @@ public class HeaderMenu {
 
     obj.userMenu.getItems().addAll(obj.logOutMenuItem);
 
-    obj.bar.getMenus().addAll(obj.operationMenu, obj.userMenu);
+    obj.bar.getMenus().addAll(obj.homeMenu,obj.operationMenu, obj.userMenu);
   }
 
   public void setActions(HeaderMenuVar obj, Stage stage, String role) {
+    obj.homeMenuLbl.setOnMouseClicked(e -> {
+			new MainPage(stage, role);
+		});
+
     obj.logOutMenuItem.setOnAction(e -> {
       User.setActiveUser(null);
       UserController.getInstance().navigateToRegister(stage);
@@ -121,8 +133,24 @@ public class HeaderMenu {
       new MakeReportPage(stage);
     });
     
+    obj.viewAllStaff.setOnAction(e -> {
+    	new ViewAllStaff(stage, "ChangeRole");
+    });
+    
     obj.viewTechnicianJob.setOnAction(e -> {
     	new ViewTechnicianJobPage(stage);
+    });
+    
+    obj.viewAllTechnicianJob.setOnAction(e -> {
+    	new ViewAllStaff(stage, "UpdateJob");
+    });
+    
+    obj.viewAllTransactionHistory.setOnAction(e -> {
+    	new ViewAllTransactionHistoryPage(stage);
+    });
+    
+    obj.viewAllReport.setOnAction(e ->{
+    	new ViewAllReport(stage);
     });
   }
 

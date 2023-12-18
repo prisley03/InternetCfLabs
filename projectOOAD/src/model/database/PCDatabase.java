@@ -64,22 +64,22 @@ public class PCDatabase implements DAO<PC>{
 
 	@Override
 	public void insert(PC obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(PC obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(PC obj) {
-		// TODO Auto-generated method stub
+		String query = String.format("INSERT INTO mspc VALUES(%d, '%s')", obj.getPcId(), obj.getPcCondition());
+		con.executeUpdateQuery(query);		
 		
 	}
 	
+	// Update PC condition by PC_ID
+	@Override
+	public void update(PC obj) {
+		
+	}
+	
+	@Override
+	public void delete(PC obj) {
+
+	}
+
 	//Retrieve all available usable PCs based on booking date and ID
 	public ArrayList<PC> getPCDataByDateAndId(int id, String bookingDate) {
 		ArrayList<PC> pcList = new ArrayList<PC>();
@@ -111,23 +111,19 @@ public class PCDatabase implements DAO<PC>{
 				
 		return pcList;
 	}
-
-	public PC getPCDetail(int id) {
-		String query = String.format("SELECT * FROM mspc WHERE PC_ID = %d", id);
+	
+	// Delete PC by PC_ID
+	public void delete (int pcID) {
+		String query = String.format("DELETE FROM mspc WHERE PC_ID = %d",pcID);
+		con.executeUpdateQuery(query);
 		
-		ResultSet rs = con.executeSelectQuery(query);
-		
-		try {
-			if(rs.next()) {
-				int pcId  = rs.getInt("PC_ID");
-				String pcCondition = rs.getString("PC_Condition");
-				return new PC(pcId, pcCondition);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
 	}
+	
+	public void update(int pcID, String pcCondition) {
+		String query = String.format("UPDATE mspc SET PC_Condition = '%s' WHERE PC_ID = %d", pcCondition, pcID);
+		con.executeUpdateQuery(query);
+	}
+	
+	
 
 }

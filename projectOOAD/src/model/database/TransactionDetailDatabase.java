@@ -16,7 +16,7 @@ public class TransactionDetailDatabase {
 	public TransactionDetailDatabase() {
 		con = ConnectDB.getInstance();
 	}
-	
+
 	// Retrieve all transaction detail that exist
 	public ArrayList<TransactionDetail> getAllTransactionDetail(){
 		ArrayList<TransactionDetail> tdList = new ArrayList<TransactionDetail>();

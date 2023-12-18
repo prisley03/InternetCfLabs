@@ -79,9 +79,7 @@ public class PCDatabase implements DAO<PC>{
 	public void delete(PC obj) {
 
 	}
-	
 
-	
 	//Retrieve all available usable PCs based on booking date and ID
 	public ArrayList<PC> getPCDataByDateAndId(int id, String bookingDate) {
 		ArrayList<PC> pcList = new ArrayList<PC>();

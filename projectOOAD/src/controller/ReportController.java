@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import model.database.ReportDatabase;
 import model.object.Report;
@@ -35,5 +36,9 @@ public class ReportController {
     int id = Integer.parseInt(pcID.split(" ", 2)[1]);
     Report report = new Report(0, role, id, notes, new Date());
     SingletonHelper.reportDB.insert(report, role);
+  }
+  
+  public ArrayList<Report> getAllReport(){
+	  return SingletonHelper.reportDB.selectAll();
   }
 }

@@ -11,6 +11,7 @@ public class JobController {
 	private static class SingletonHelper{
 		private static final JobController INSTANCE = new JobController();
 		private static final JobDatabase jobDB = new JobDatabase();
+		private static final PCController pcController = new PCController();
 	}
 	
 
@@ -30,7 +31,6 @@ public class JobController {
 // mendapatkan data sesuai dengan technician yang login dengan userid tertentu namun hanya menunjukkan yang job status "uncomplete"
 	public ArrayList<Job> getJobUncompleteData(int techId){
 		return SingletonHelper.jobDB.getJobUncompleteData(techId);
-
 	}
 
 // mengubah pc id yang ditekan agar jobstatus diubah dari "Uncomplete" menjadi "Complete"
@@ -43,7 +43,7 @@ public class JobController {
 			}
 		}
 	}
-  
+	
 	public boolean updateStatusJob(int pcId, String jobStatus) {
 		//Retrieve job that related to pcID 
 		Job toBeUpdatedJob = SingletonHelper.jobDB.getJobByPCID(pcId);

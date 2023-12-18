@@ -70,18 +70,20 @@ public class JobDatabase implements DAO<Job> {
 		try {
 			while(rs.next()) {
 				int jobID = rs.getInt("Job_ID");
+				int userId = rs.getInt("UserID");
 	            int pcId = rs.getInt("PC_ID");
 	            String jobStatus = rs.getString("JobStatus");
 	            
-	            jobList.add(new Job(jobID, userID, pcId, jobStatus));
+	            ketemu = new Job(jobID, userId, pcId, jobStatus);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return jobList;
+		return ketemu;
 	}
+	
 	@Override
 	public Job selectById(int id) {
 		// TODO Auto-generated method stub
@@ -136,6 +138,8 @@ public class JobDatabase implements DAO<Job> {
 		String updateJobStatusQuery = String.format("UPDATE `msjob` SET JobStatus = 'Complete' WHERE PC_ID = %d", pcId);
 		con.executeUpdateQuery(updateJobStatusQuery);
 	}
+	
+	
 	
 	public boolean updateJobStatus(Job obj) {
 		

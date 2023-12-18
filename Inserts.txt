@@ -70,10 +70,16 @@ INSERT INTO mspc(PC_Condition) VALUES
 INSERT INTO mspcbook(PC_ID, UserID, BookedDate) 
 VALUES(1, 1, NOW()), (2, 1, NOW()), (3, 1, NOW()), (4, 1, NOW()), (5, 1, NOW());
 
+
+
+INSERT INTO `msjob` VALUES (1,4,3,'UnComplete'),(2,4,6,'Uncomplete'),(3,5,9,'Uncomplete');
+
 INSERT INTO msuser VALUES
 (1, 'filbert', 'test345', 'Operator', 20),
 (2, 'aveAdmin', 'ave123', 'Admin', 20),
-(3, 'aveOp', 'ave123', 'Operator', 20);
+(3, 'aveOp', 'ave123', 'Operator', 20),
+(4, 'techniciantest', 'test345', 'Technician', 20),
+(5, 'techniciantest2', 'test345', 'Technician', 20);
 
 INSERT INTO transactionheader (TransactionID, StaffID, StaffName, TransactionDate) VALUES 
 (1,2,'AveAdmin', NOW()),

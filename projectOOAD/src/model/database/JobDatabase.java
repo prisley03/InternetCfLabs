@@ -3,14 +3,10 @@ package model.database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import connection.ConnectDB;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import model.object.Job;
-import model.object.PC;
-import model.object.PCBook;
+import model.object.User;
 
 public class JobDatabase implements DAO<Job> {
 	public ConnectDB con;
@@ -18,10 +14,9 @@ public class JobDatabase implements DAO<Job> {
 	public JobDatabase() {
 		con = ConnectDB.getInstance();
 	}
-	
+//	retrive all the data from database
 	public ArrayList<Job> getAllData(){ 
 		ArrayList<Job> jobList = new ArrayList<Job>();
-		
 		String query = ("SELECT * FROM msjob");
 		ResultSet rs = con.executeSelectQuery(query);
 		
@@ -41,7 +36,7 @@ public class JobDatabase implements DAO<Job> {
 		
 		return jobList;
 	}
-	
+		
 	public ArrayList<Job> getAllJobByTechID(int techID){ 
 		ArrayList<Job> jobList = new ArrayList<Job>();
 		
@@ -88,6 +83,27 @@ public class JobDatabase implements DAO<Job> {
 		return ketemu;
 	}
 	
+//retrieve the data based on Technician' userId
+	public ArrayList<Job> getDataforTechnician(int userID){
+		ArrayList<Job> jobList = new ArrayList<>();
+		String query = String.format("SELECT * FROM msjob where UserID = %d", userID);
+		ResultSet rs = con.executeSelectQuery(query);
+		
+		try {
+			while(rs.next()) {
+				int jobID = rs.getInt("Job_ID");
+	            int pcId = rs.getInt("PC_ID");
+	            String jobStatus = rs.getString("JobStatus");
+	            
+	            jobList.add(new Job(jobID, userID, pcId, jobStatus));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return jobList;
+	}
 	@Override
 	public Job selectById(int id) {
 		// TODO Auto-generated method stub
@@ -110,12 +126,11 @@ public class JobDatabase implements DAO<Job> {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public ArrayList<Job> getJobUncompleteData() {
+
+//	retrieve the data for just combobox to just show the job status that is uncomplete  
+	public ArrayList<Job> getJobUncompleteData(int UserId) {
 		ArrayList<Job>uncompletePC = new ArrayList<>();
-		String query = String.format("SELECT * FROM msjob a\r\n"
-				+ "JOIN msjob b ON a.PC_ID = b.PC_ID\r\n"
-				+ "WHERE a.JobStatus LIKE 'Uncomplete'\r\n");
+		String query = String.format("SELECT * FROM msjob WHERE JobStatus LIKE 'Uncomplete' AND UserID = %d", UserId);
 
 		ResultSet rs = con.executeSelectQuery(query);
 		
@@ -134,6 +149,31 @@ public class JobDatabase implements DAO<Job> {
 		
 		return uncompletePC;
 	}
+	
+	// public ArrayList<Job> getJobUncompleteDataByTechID(int techID) {
+	// 	ArrayList<Job>uncompletePC = new ArrayList<>();
+	// 	String query = String.format("SELECT Job_ID\r\n"
+	// 			+ "FROM msjob a\r\n"
+	// 			+ "JOIN mspc b ON a.PC_ID = b.PC_ID\r\n"
+	// 			+ "WHERE a.JobStatus LIKE 'Uncomplete' AND a.UserID = %d\r\n", techID );
+
+	// 	ResultSet rs = con.executeSelectQuery(query);
+		
+	// 	try {
+	// 		while(rs.next()) {
+	// 			int jobID = rs.getInt("Job_ID");
+	// 			int userId = rs.getInt("UserID");
+	//             int pcId = rs.getInt("PC_ID");
+	//             String jobStatus = rs.getString("JobStatus");
+	            
+	//             uncompletePC.add(new Job(jobID, userId, pcId, jobStatus));  
+	// 		}
+	// 	} catch (SQLException e) {
+	// 		e.printStackTrace();
+	// 	}
+		
+	// 	return uncompletePC;
+	// }
 	
 	public ArrayList<Job> getJobUncompleteDataByTechID(int techID) {
 		ArrayList<Job>uncompletePC = new ArrayList<>();
@@ -159,7 +199,8 @@ public class JobDatabase implements DAO<Job> {
 		
 		return uncompletePC;
 	}
-	
+
+//	update the job status from "Uncomplete" to "Complete
 	public void update(Job obj) {
 		
 		int pcId = obj.getPcId();

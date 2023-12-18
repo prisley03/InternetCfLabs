@@ -5,6 +5,7 @@ import header.HeaderMenu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -15,6 +16,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.database.JobDatabase;
 import model.object.Job;
@@ -27,7 +30,6 @@ public class ViewTechnicianJobPage {
 	public class TechnicianJobComp{
 		Scene allTechnicianJobScene;
 		BorderPane bpTechnician = new BorderPane();
-		private VBox containerBox = new VBox();
 		ScrollPane scrollpane = new ScrollPane();
 		VBox tableBox = new VBox();
 	    Label tableLabel = new Label("List of Technician Job");
@@ -43,14 +45,12 @@ public class ViewTechnicianJobPage {
 
 	    Button submitButton = new Button("Submit");
 	    Label message = new Label("");
-		Label titleLabel = new Label();
 	}
 	
 //Pemasangan tampilan menu
-	@SuppressWarnings("unchecked")
 	public Scene initialize(TechnicianJobComp comp, Stage stage, String role){
 		comp.jobBox.getChildren().addAll(
-		        comp.tableLabel,
+		        comp.tableBox,
 		        comp.pcBox,
 		        comp.submitButton,
 		        comp.message
@@ -63,15 +63,13 @@ public class ViewTechnicianJobPage {
 	    comp.tableBox.getChildren().addAll(comp.tableLabel, comp.allJobTableView);
 
 	    comp.pcBox.getChildren().addAll(comp.pcLabel, comp.pcIDInput);
-	    
-	    comp.containerBox.getChildren().addAll(comp.tableBox, comp.jobBox);
-	    comp.scrollpane.setContent(comp.containerBox);
+
+	    comp.scrollpane.setContent(comp.jobBox);
 	    comp.bpTechnician.setTop(new HeaderMenu().getMenuHeader(stage, role));
 
-	    Insets vboxPadding = new Insets(10, 0, 10, 0);
+	    comp.jobBox.setSpacing(20);
 	    comp.tableBox.setSpacing(10);
-	    comp.containerBox.setSpacing(20);
-	    comp.containerBox.setPadding(vboxPadding);
+	    comp.pcBox.setSpacing(10);
 
 	    comp.bpTechnician.setCenter(comp.scrollpane);
 	    comp.allTechnicianJobScene = new Scene(comp.bpTechnician, 800, 600);
@@ -81,7 +79,7 @@ public class ViewTechnicianJobPage {
 //	Mengebind data
 	public void bindData(TechnicianJobComp comp) {
 		comp.pcIDInput.getItems().clear();
-		ObservableList<Job> jobList = FXCollections.observableArrayList(JobController.getInstance().getAllJobData());
+		ObservableList<Job> jobList = FXCollections.observableArrayList(JobController.getInstance().getJobforTechinician());
 		ObservableList<Job> uncompleteJobList = FXCollections.observableArrayList(JobController.getInstance().getJobUncompleteData());
 		comp.allJobTableView.setItems(jobList);
 		comp.pcIDInput.getItems().add("Select PC");
@@ -96,13 +94,14 @@ public class ViewTechnicianJobPage {
 
 //	Action untuk submit button mengubah value pada status 'uncomplete' menjadi 'complete'
 	public void setAction(TechnicianJobComp comp) {
+		
 		comp.submitButton.setOnAction(e->{
 			String selectedUncompletePC = comp.pcIDInput.getValue();
-			if(selectedUncompletePC != "Select PC") {
-				
+			if(!"Select PC".equals(selectedUncompletePC)) {
+				int userID = User.getActiveUser().getUserId();
 				String[] pcId = selectedUncompletePC.split(" ");
 				int pcID = Integer.parseInt(pcId[1]);
-				jobController.markComplete(pcID);
+				jobController.markComplete(pcID, userID);
 				bindData(comp);
 				comp.message.setText("Succesfully update status :" + selectedUncompletePC);
 				}
@@ -110,6 +109,19 @@ public class ViewTechnicianJobPage {
 				comp.message.setText("Please choose PC");
 			}
 		});
+	}
+
+// menset styling pada tampilan
+	public void setStyle(TechnicianJobComp comp) {
+	    comp.bpTechnician.setCenter(comp.jobBox);
+	    comp.jobBox.setAlignment(Pos.CENTER);
+		comp.tableBox.setAlignment(Pos.CENTER);
+		comp.pcBox.setAlignment(Pos.CENTER);
+		
+//		Menstyling tulisan pada title
+		comp.tableLabel.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+		
+		comp.allJobTableView.setMaxWidth(250);
 	}
 
 //Menampilkan stage
@@ -120,6 +132,7 @@ public class ViewTechnicianJobPage {
 		initialize(comp, stage, user.getUserRole());
 		bindData(comp);
 		setAction(comp);
+		setStyle(comp);
 		stage.setScene(comp.allTechnicianJobScene);
 		stage.setTitle("View All Job");
 		stage.setResizable(false);

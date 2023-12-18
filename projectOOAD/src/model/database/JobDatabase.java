@@ -37,49 +37,27 @@ public class JobDatabase implements DAO<Job> {
 		return jobList;
 	}
 	
-
-	public ArrayList<Job> getAllJobByTechID(int techID){ 
-		ArrayList<Job> jobList = new ArrayList<Job>();
-		
-		String query = (String.format("SELECT * FROM msjob WHERE UserID = %d", techID));
 //retrieve the data based on Technician' userId
 	public ArrayList<Job> getDataforTechnician(int userID){
 		ArrayList<Job> jobList = new ArrayList<>();
 		String query = String.format("SELECT * FROM msjob where UserID = %d", userID);
-
-				int userId = rs.getInt("UserID");
-	            int pcId = rs.getInt("PC_ID");
-	            String jobStatus = rs.getString("JobStatus");
-	            
-	            jobList.add(new Job(jobID, userId, pcId, jobStatus));
-	            int pcId = rs.getInt("PC_ID");
-	            String jobStatus = rs.getString("JobStatus");
-	            
-	            jobList.add(new Job(jobID, userID, pcId, jobStatus));
-	
-	public Job getJobByPCID(int pcID){ 
-		Job ketemu= null;
-		
-		String query = (String.format("SELECT * FROM msjob WHERE PC_ID = %d", pcID));
 		ResultSet rs = con.executeSelectQuery(query);
 		
 		try {
 			while(rs.next()) {
 				int jobID = rs.getInt("Job_ID");
-				int userId = rs.getInt("UserID");
 	            int pcId = rs.getInt("PC_ID");
 	            String jobStatus = rs.getString("JobStatus");
 	            
-	            ketemu = new Job(jobID, userId, pcId, jobStatus);
+	            jobList.add(new Job(jobID, userID, pcId, jobStatus));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return ketemu;
+		return jobList;
 	}
-	
 	@Override
 	public Job selectById(int id) {
 		// TODO Auto-generated method stub
@@ -133,46 +111,5 @@ public class JobDatabase implements DAO<Job> {
 		// TODO Auto-generated method stub
 		String updateJobStatusQuery = String.format("UPDATE `msjob` SET JobStatus = 'Complete' WHERE PC_ID = %d", pcId);
 		con.executeUpdateQuery(updateJobStatusQuery);
-	}
-	
-	
-	
-	public boolean updateJobStatus(Job obj) {
-		
-		int pcId = obj.getPcId();
-		// TODO Auto-generated method stub
-		String updateJobStatusQuery = String.format("UPDATE `msjob` SET JobStatus = '%s' WHERE PC_ID = %d", obj.getJobStatus(), pcId);
-		con.executeUpdateQuery(updateJobStatusQuery);
-		return true;
-	}
-	
-	public boolean insertJob(int pcID, String jobStatus, int techID) {
-		String query = (String.format("INSERT INTO msjob (UserID, PC_ID, JobStatus ) VALUES \r\n"
-				+ "(%d,%d,'%s')", techID, pcID, jobStatus));
-		con.executeUpdateQuery(query);
-		return true;
-	}
-	
-	public ArrayList<Integer> gettAllPossibleMaintenancePCID(){
-		ArrayList<Integer> possiblePC = new ArrayList<>();
-		String query = String.format("SELECT a.PC_ID, a.PC_Condition\r\n"
-				+ "FROM mspc a\r\n"
-				+ "LEFT JOIN msjob b ON a.PC_ID = b.PC_ID\r\n"
-				+ "WHERE b.PC_ID IS NULL;\r\n"
-		 );
-
-		ResultSet rs = con.executeSelectQuery(query);
-		
-		try {
-			while(rs.next()) {
-	            int pcId = rs.getInt("PC_ID");
-
-	            possiblePC.add(pcId);  
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return possiblePC;
 	}
 }

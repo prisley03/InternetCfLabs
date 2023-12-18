@@ -1,13 +1,9 @@
 package controller;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javafx.stage.Stage;
 import model.database.UserDatabase;
-import model.object.PCBook;
 import model.object.User;
 import utility.StringUtility;
 import view.LoginPage;
@@ -108,20 +104,9 @@ public class UserController {
 		SingletonHelper.userDB.insert(user);
 	}
 	
-	public boolean addNewUser(String Username, String Password, String role, int Age) {
-		User user = new User(0, Username, Password, role, Age);
-		SingletonHelper.userDB.insert(user);
-		return true;
-	}
-	
-	public boolean deleteUser(int userID) {
-		SingletonHelper.userDB.delete(userID);
-		return true;
-	}
-	
 	public ArrayList<User> getAllTechnician() {
 		ArrayList<User> technicianList = new ArrayList<>();
-		technicianList = SingletonHelper.userDB.selectAllTechnician() ;
+		
 		return technicianList;
 	}
 	
@@ -132,11 +117,5 @@ public class UserController {
 	
 	public User getUserDataById(int id) {
 		return SingletonHelper.userDB.selectById(id);
-	}
-	
-	public ArrayList<User> getAllStaff(){
-		ArrayList<User> staffList = new ArrayList<User>();
-		staffList = SingletonHelper.userDB.selectAllStaff() ;
-		return staffList;
 	}
 }

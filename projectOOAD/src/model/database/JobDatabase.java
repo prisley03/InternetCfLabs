@@ -36,7 +36,7 @@ public class JobDatabase implements DAO<Job> {
 		return jobList;
 	}
 	
-
+//	retrive all the data from database with same as userID
 	public ArrayList<Job> getAllJobByTechID(int techID){ 
 		ArrayList<Job> jobList = new ArrayList<Job>();
 
@@ -57,29 +57,6 @@ public class JobDatabase implements DAO<Job> {
 			e.printStackTrace();
 		}
 
-		return jobList;
-	}
-
-		
-//retrieve the data based on Technician' userId
-	public ArrayList<Job> getDataforTechnician(int userID){
-		ArrayList<Job> jobList = new ArrayList<Job>();
-		String query = String.format("SELECT * FROM msjob where UserID = %d", userID);
-		ResultSet rs = con.executeSelectQuery(query);
-		
-		try {
-			while(rs.next()) {
-				int jobID = rs.getInt("Job_ID");
-	            int pcId = rs.getInt("PC_ID");
-	            String jobStatus = rs.getString("JobStatus");
-	            
-	            jobList.add(new Job(jobID, userID, pcId, jobStatus));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		return jobList;
 	}
 
@@ -131,9 +108,9 @@ public class JobDatabase implements DAO<Job> {
 	}
 
 //	retrieve the data for just combobox to just show the job status that is uncomplete  
-	public ArrayList<Job> getJobUncompleteData(int UserId) {
+	public ArrayList<Job> getJobUncompleteData(int techId) {
 		ArrayList<Job>uncompletePC = new ArrayList<>();
-		String query = String.format("SELECT * FROM msjob WHERE JobStatus LIKE 'UnComplete' AND UserID = %d", UserId);
+		String query = String.format("SELECT * FROM msjob WHERE JobStatus LIKE 'UnComplete' AND UserID = %d", techId);
 
 		ResultSet rs = con.executeSelectQuery(query);
 		

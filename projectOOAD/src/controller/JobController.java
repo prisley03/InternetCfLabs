@@ -24,23 +24,18 @@ public class JobController {
 	}
 
 //	mendapatkan semua job data dari singleton khusus untuk technician yang login dengan userid tertentu
-	public ArrayList<Job> getJobforTechinician(){
-		int userId = User.getActiveUser().getUserId();
-		return SingletonHelper.jobDB.getDataforTechnician(userId);
-	}
 	public ArrayList<Job> getAllJobDataByTechID(int techID){
 		return SingletonHelper.jobDB.getAllJobByTechID(techID);
 	}
+	
 // mendapatkan data sesuai dengan technician yang login dengan userid tertentu namun hanya menunjukkan yang job status "uncomplete"
-
-	public ArrayList<Job> getJobUncompleteData(){
-		int userId = User.getActiveUser().getUserId();
-		return SingletonHelper.jobDB.getJobUncompleteData(userId);
+	public ArrayList<Job> getJobUncompleteData(int techId){
+		return SingletonHelper.jobDB.getJobUncompleteData(techId);
 	}
 
 // mengubah pc id yang ditekan agar jobstatus diubah dari "Uncomplete" menjadi "Complete"
-	public void markComplete(int pcId, int userId) {
-		ArrayList<Job>jobUncompleteData = SingletonHelper.jobDB.getJobUncompleteData(userId);
+	public void markComplete(int pcId, int techId) {
+		ArrayList<Job>jobUncompleteData = SingletonHelper.jobDB.getJobUncompleteData(techId);
 		
 		for(Job job: jobUncompleteData) {
 			if(job.getPcId() == pcId) {

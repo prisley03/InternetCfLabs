@@ -1,3 +1,4 @@
+CREATE DATABASE internetcf
 CREATE TABLE msuser(
     UserID INT PRIMARY KEY AUTO_INCREMENT,
     UserName VARCHAR(255) UNIQUE NOT NULL,
@@ -86,5 +87,9 @@ INSERT INTO transactionheader (TransactionID, StaffID, StaffName, TransactionDat
 INSERT INTO transactiondetail (TransactionID, PC_ID, CustomerName, BookedTime) VALUES 
 (1, 1, 'averine08', NOW());
 
+INSERT INTO `msjob`(`Job_ID`, `UserID`, `PC_ID`, `JobStatus`) VALUES (1,6,3,'UnComplete'), (2,7,9,'UnComplete'), (3,6,11,'Uncomplete');
+
+INSERT INTO `msreport`(`Report_ID`, `UserRole`, `PC_ID`, `ReportNote`, `ReportDate`) VALUES (1,'Customer',10,'Sering blue screen','2023-12-18 12:25:13
+');
 
 	

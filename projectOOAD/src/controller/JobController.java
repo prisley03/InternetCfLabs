@@ -70,6 +70,11 @@ public class JobController {
 	}
 	
 	public boolean addJob(int pcID, String jobStatus, int techID) {
+		if(jobStatus.equals("Complete")) {
+			SingletonHelper.pcController.updatePCCondition(pcID, "Usable");
+		}else if(jobStatus.equals("UnComplete")) {
+			SingletonHelper.pcController.updatePCCondition(pcID, "Maintenance");
+		}
 		return SingletonHelper.jobDB.insertJob(pcID, jobStatus, techID);
 	}
 	

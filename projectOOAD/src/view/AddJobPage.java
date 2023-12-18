@@ -118,8 +118,7 @@ public class AddJobPage {
 			// the field also ensured already field by selecFirst()
 			int pcID = obj.pcIDCombo.getSelectionModel().getSelectedItem();
 			String jobStatus = obj.jobStatusCombo.getSelectionModel().getSelectedItem();
-			System.out.println(pcID);
-			System.out.println(jobStatus);
+		
 			if(jobController.addJob(pcID, jobStatus, sT.getUserId())){
 				new ViewAllTechnicianJob(stage, sT);
 			}

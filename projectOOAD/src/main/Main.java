@@ -22,9 +22,7 @@ public class Main extends Application {
 		//Setting up initial DB connection
 		ConnectDB.getInstance().initializeConnection();
 		//User will directly be redirected to the register page
-//		UserController.getInstance().navigateToRegister(arg0); 
-//		User.setActiveUser(UserController.getInstance().getUserData("AveAdmin", "ave123"));
-		User.setActiveUser(UserController.getInstance().getUserData("aveAdmin", "ave123"));
-		UserController.getInstance().navigateToMainPage(arg0, User.getActiveUser().getUserRole());
+		UserController.getInstance().navigateToRegister(arg0); 
+
 	}
 }

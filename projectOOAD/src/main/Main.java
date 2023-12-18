@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import javafx.application.Application;
 //import model.database.PCDatabase;
 import javafx.stage.Stage;
-import model.object.User;
-import view.MainPage;
-import view.ViewAllStaff;
 
 public class Main extends Application {
 
@@ -23,6 +20,5 @@ public class Main extends Application {
 		ConnectDB.getInstance().initializeConnection();
 		//User will directly be redirected to the register page
 		UserController.getInstance().navigateToRegister(arg0); 
-
 	}
 }

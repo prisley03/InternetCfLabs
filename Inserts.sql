@@ -1,3 +1,4 @@
+CREATE DATABASE internetcf
 CREATE TABLE msuser(
     UserID INT PRIMARY KEY AUTO_INCREMENT,
     UserName VARCHAR(255) UNIQUE NOT NULL,
@@ -73,8 +74,8 @@ INSERT INTO msuser VALUES
 (3, 'aveAdmin', 'ave123', 'Admin', 20),
 (4, 'aveOp', 'ave123', 'Operator', 20),
 (5, 'filbert', 'test345', 'Operator', 20),
-(6, 'user6', 'ave123', 'Technician', 22),
-(7, 'daniel', 'ave123', 'Technician', 21);
+(6, 'user6', 'ave123', 'Computer Technician', 22),
+(7, 'daniel', 'ave123', 'Computer Technician', 21);
 
 INSERT INTO mspcbook(PC_ID, UserID, BookedDate) 
 VALUES(1, 2, NOW()), (2, 1, NOW()), (3, 1, NOW()), (4, 1, NOW()), (5, 1, NOW());
@@ -87,3 +88,8 @@ INSERT INTO transactiondetail (TransactionID, PC_ID, CustomerName, BookedTime) V
 (1, 1, 'averine08', NOW());
 
 INSERT INTO `msjob`(`Job_ID`, `UserID`, `PC_ID`, `JobStatus`) VALUES (1,6,3,'UnComplete'), (2,7,9,'UnComplete'), (3,6,11,'Uncomplete');
+
+INSERT INTO `msreport`(`Report_ID`, `UserRole`, `PC_ID`, `ReportNote`, `ReportDate`) VALUES (1,'Customer',10,'Sering blue screen','2023-12-18 12:25:13
+');
+
+	
